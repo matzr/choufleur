@@ -1,0 +1,22 @@
+{
+  "name": "choufleur_server",
+  "version": "0.0.1",
+  "description": "De grandes oreilles... pour mieux t'entendre",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "LISTEN",
+    "REPEAT"
+  ],
+  "author": "Mathieu Gardere",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.2.0",
+    "mysql": "^2.3.0",
+    "mkdirp": "^0.5.0",
+    "underscore": "^1.6.0",
+    "q": "^1.0.1"
+  }
+}
