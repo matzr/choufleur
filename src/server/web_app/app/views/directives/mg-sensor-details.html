@@ -1,0 +1,32 @@
+<div class="sensor-details">
+<h1 title="{{sensorId}}">Sensor <b>{{sensorName}}</b></h1>
+
+<audio controls id="audioPlayer{{sensorId}}" style="visibility: hidden">
+    <p>Your browser does not support the audio element.</p>
+</audio>
+
+<div class="autoplay">
+    <input type="checkbox" ng-model="autoplay" id="cbAutoplay{{sensorId}}" />
+    <label for="cbAutoplay{{sensorId}}">AutoPlay</label>
+</div>
+
+
+
+
+<div class="timeline-container">
+    <div class="dates">
+        <div class="dt-from">{{dtFrom | date:'dd/MM HH:mm'}}</div>
+        <div ng-click="unzoomFullDay()" ng-hide="isFullDay()" class="reset-full-day">Unzoom to full day</div>
+        <div class="dt-to">{{dtTo | date:'dd/MM HH:mm'}}</div>
+    </div>
+    <div class="timeline-and-controls">
+        <mg-timeline events="samples" selected-event="currentlyPlaying" get-css="getCssPosition" get-event-time="getSampleStartDate" get-event-duration="getSampleDuration" min-value="dtFrom" max-value="dtTo" on-click="playSample">
+        </mg-timeline>
+        <div ng-show="loading" class="loading">Loading...</div>
+        <a ng-click="goToPreviousDay()" class="before">&lt;&lt;</a>
+        <a ng-click="goToNextDay()" class="after">&gt;&gt;</a>
+    </div>
+</div>
+
+<div class="currently-playing" ng-show="currentlyPlaying">Currently playing: {{currentlyPlaying.sample_start_date | date:'dd/MM HH:mm:ss'}}</div>
+</div>

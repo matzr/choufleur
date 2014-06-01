@@ -1,0 +1,4 @@
+<div class="timeline">
+    <div class="event" ng-class="{'selected': event == selectedEvent}" style="pointer-events: none; {{getCssHandler(event)}}" ng-repeat="event in events"></div>
+    <div class="window" ng-show="dragging" style="position: absolute; left: {{windowLeft}}px; width: {{windowRight - windowLeft}}px"></div>
+</div>
