@@ -1,0 +1,42 @@
+
+/* Class = "IBUILabel"; text = "Latitude"; ObjectID = "1A9-EN-eXM"; */
+"1A9-EN-eXM.text" = "Latitude";
+
+/* Class = "IBUILabel"; text = "Sensor Details"; ObjectID = "8Mz-b9-k2V"; */
+"8Mz-b9-k2V.text" = "Sensor Details";
+
+/* Class = "IBUIButton"; normalTitle = "Start"; ObjectID = "BAX-g3-8Av"; */
+"BAX-g3-8Av.normalTitle" = "Start";
+
+/* Class = "IBUILabel"; text = "Location"; ObjectID = "CZn-Oj-w2K"; */
+"CZn-Oj-w2K.text" = "Location";
+
+/* Class = "IBUILabel"; text = "Auto Restart"; ObjectID = "Emo-px-S8R"; */
+"Emo-px-S8R.text" = "Auto Restart";
+
+/* Class = "IBUIButton"; normalTitle = "Stop"; ObjectID = "JYM-HA-MOn"; */
+"JYM-HA-MOn.normalTitle" = "Stop";
+
+/* Class = "IBUILabel"; text = "Sample size"; ObjectID = "JsK-5X-e9i"; */
+"JsK-5X-e9i.text" = "Sample size";
+
+/* Class = "IBUILabel"; text = "UID"; ObjectID = "QkF-9s-k89"; */
+"QkF-9s-k89.text" = "UID";
+
+/* Class = "IBUILabel"; text = "Accuracy"; ObjectID = "SN3-Fx-HGf"; */
+"SN3-Fx-HGf.text" = "Accuracy";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "TX2-mH-OM5"; */
+"TX2-mH-OM5.text" = "Name";
+
+/* Class = "IBUIButton"; normalTitle = "Register Sensor"; ObjectID = "WLg-Gm-Cin"; */
+"WLg-Gm-Cin.normalTitle" = "Register Sensor";
+
+/* Class = "IBUILabel"; text = "30"; ObjectID = "bjQ-Sw-e8Q"; */
+"bjQ-Sw-e8Q.text" = "30";
+
+/* Class = "IBUILabel"; text = "Longitude"; ObjectID = "cEE-Vd-CzU"; */
+"cEE-Vd-CzU.text" = "Longitude";
+
+/* Class = "IBUILabel"; text = "seconds"; ObjectID = "rbE-Zm-VzL"; */
+"rbE-Zm-VzL.text" = "seconds";

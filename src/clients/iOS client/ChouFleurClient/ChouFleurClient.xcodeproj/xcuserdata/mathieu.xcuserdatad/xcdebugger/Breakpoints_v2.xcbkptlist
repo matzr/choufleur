@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChouFleurClient/ViewController.m"
-            timestampString = "422321963.321487"
+            timestampString = "422696193.830301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "-uploadSample"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "-stopRecording:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
