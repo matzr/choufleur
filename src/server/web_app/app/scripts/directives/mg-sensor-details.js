@@ -59,7 +59,8 @@
                         }
 
                         socket.on('sample', function(sample) {
-                            if ((sample.sensor_id === $scope.sensorId) && (sample.sample_start_date > $scope.dtFrom) && (sample.sample_start_date < $scope.dtTo)) {
+                            var start = moment(sample.sample_start_date).valueOf();
+                            if ((sample.sensor_id === $scope.sensorId) && (start > $scope.dtFrom) && (start < $scope.dtTo)) {
                                 if ($scope.samples) {
                                     $scope.samples.push(sample);
                                     $scope.samples = $scope.samples.sort(function(a, b) {
@@ -94,6 +95,9 @@
                         function playNextSample() {
                             if ($scope.samples.indexOf($scope.currentlyPlaying) > 0) {
                                 $scope.playSample($scope.samples[$scope.samples.indexOf($scope.currentlyPlaying) - 1]);
+                            } else {
+                                $scope.currentlyPlaying = null;
+                                $scope.$apply();
                             }
                         }
 

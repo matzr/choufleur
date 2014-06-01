@@ -29,18 +29,21 @@ int MAX_DURATION_PER_SAMPLE = 60;
 float LEVEL_THRESHOLD_TO_SEND = .07;
 BOOL ASYNC_POST = YES;
 
-//NSString * BASE_URL = @"http://choufleur.mathieugardere.com:21177/";
-NSString * BASE_URL = @"http://localhost:21177/";
+NSString * BASE_URL = @"http://choufleur.mathieugardere.com:21177/";
+//NSString * BASE_URL = @"http://localhost:21177/";
 
 
 NSString * kAverageLevelKey = @"averageLevel";
 NSString * kMaxLevelKey = @"maxLevel";
 NSString * kBitRateKey = @"bitRate";
+NSString * kSampleRateKey = @"sampleRate";
 NSString * kStartDateKey = @"startDate";
 NSString * kDurationKey = @"duration";
 
 
-float recordingBitRate = 16000.0;
+float sampleRate = 11025.0;
+int numberOfChannels = 1;
+int quality = AVAudioQualityMin;
 
 - (void)viewDidLoad
 {
@@ -130,7 +133,7 @@ float recordingBitRate = 16000.0;
         } else {
             NSLog(@"discarded sample");
         }
-               [soundRecorder deleteRecording];
+//               [soundRecorder deleteRecording];
         soundRecorder = nil;
         [[AVAudioSession sharedInstance] setActive: NO error: nil];
         
@@ -164,15 +167,21 @@ float recordingBitRate = 16000.0;
          error: nil];
         
         NSDictionary *recordSettings = @{
-                                         AVSampleRateKey: @(recordingBitRate),
+                                         AVSampleRateKey: @(sampleRate),
                                          AVFormatIDKey: @(kAudioFormatMPEG4AAC),
-                                         AVNumberOfChannelsKey: @(1),
-                                         AVEncoderAudioQualityKey: @(AVAudioQualityLow)
+                                         AVNumberOfChannelsKey: @(numberOfChannels),
+                                         AVEncoderAudioQualityKey: @(quality)
                                          };
         
+//        NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                         [NSNumber numberWithFloat: 11025.0],                 AVSampleRateKey,
+//                                         [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
+//                                         [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
+//                                         [NSNumber numberWithInt: AVAudioQualityMin],         AVEncoderAudioQualityKey,
+//                                         nil];
+        
         currentSampleDetails = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                               
-                                                                               kBitRateKey: @(recordingBitRate),
+                                                                               kSampleRateKey: @(sampleRate),
                                                                                kStartDateKey: [NSDate date],
                                                                                kDurationKey: @((int)(self.sampleLengthSlider.value))
                                                                                }];
@@ -217,7 +226,7 @@ float recordingBitRate = 16000.0;
     NSDate *sampleStartTime = [currentSampleDetails valueForKey:kStartDateKey];
     NSNumber * duration = [currentSampleDetails valueForKey:kDurationKey];
     NSString *token =[NSString stringWithFormat:@"%lld_%d", ((long long)([sampleStartTime timeIntervalSince1970] * 1000)), [duration intValue]];
-    int quality = [[currentSampleDetails valueForKey:kBitRateKey] intValue];
+    int quality = (int)[[currentSampleDetails valueForKey:kSampleRateKey] floatValue];
     float maxLevel = [[currentSampleDetails valueForKey:kMaxLevelKey] floatValue];
     float averageLevel = [[currentSampleDetails valueForKey:kAverageLevelKey] floatValue];
     
