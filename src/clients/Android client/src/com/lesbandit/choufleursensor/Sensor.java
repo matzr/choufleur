@@ -4,41 +4,50 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 public class Sensor extends Activity {
     private static final String LOG_TAG = "ChouFleur Sensor";
+
+    //    private static final String BASE_URL = "http://home.mathieugardere.com:21177/";
+    private static final String BASE_URL = "http://192.168.1.8:21177/";
+
+    private static AsyncHttpClient client = new AsyncHttpClient();
     private MediaRecorder mRecorder;
     private String mFileName;
     private boolean mRecording;
-
     private Button bStartSample;
     private Button bStopSample;
-
-
-//    private static final String BASE_URL = "http://home.mathieugardere.com:21177/";
-    private static final String BASE_URL = "http://192.168.46.116:21177/";
-
-    private static AsyncHttpClient client = new AsyncHttpClient();
     private EditText tSensorName;
     private EditText tLongitude;
     private EditText tLatitude;
     private EditText tAccuracy;
     private TextView tSensorId;
+    private SeekBar sbDuration;
+    private Switch swAutorestart;
+
+    private String mSensorId;
+    private String mCurrentToken;
 
 
     /**
@@ -49,14 +58,16 @@ public class Sensor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        bStartSample = (Button)findViewById(R.id.bStartSample);
-        bStopSample = (Button)findViewById(R.id.bStopSample);
+        bStartSample = (Button) findViewById(R.id.bStartSample);
+        bStopSample = (Button) findViewById(R.id.bStopSample);
 
-        tSensorId = (TextView)findViewById(R.id.txtSensorId);
-        tSensorName = (EditText)findViewById(R.id.tSensorName);
-        tLongitude = (EditText)findViewById(R.id.tLongitude);
-        tLatitude = (EditText)findViewById(R.id.tLatitude);
-        tAccuracy = (EditText)findViewById(R.id.tAccuracy);
+        tSensorId = (TextView) findViewById(R.id.txtSensorId);
+        tSensorName = (EditText) findViewById(R.id.tSensorName);
+        tLongitude = (EditText) findViewById(R.id.tLongitude);
+        tLatitude = (EditText) findViewById(R.id.tLatitude);
+        tAccuracy = (EditText) findViewById(R.id.tAccuracy);
+        sbDuration = (SeekBar) findViewById(R.id.sbDuration);
+        swAutorestart = (Switch) findViewById(R.id.swAutorestart);
 
         loadSensorDetails();
     }
@@ -67,7 +78,9 @@ public class Sensor extends Activity {
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 
-            mFileName = UUID.randomUUID().toString();
+            mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+            mFileName += "/" + UUID.randomUUID().toString();
+            mCurrentToken = System.currentTimeMillis() + "_" + sbDuration.getProgress();
 
             mRecorder.setOutputFile(mFileName);
             mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -82,16 +95,58 @@ public class Sensor extends Activity {
             mRecording = true;
             bStartSample.setEnabled(false);
             bStopSample.setEnabled(true);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopSample(null);
+                }
+            }, sbDuration.getProgress() * 1000);
         }
     }
 
     public void stopSample(View v) {
         if (mRecording) {
-            //TODO: send sample to server
+            sendSample();
             bStartSample.setEnabled(true);
             bStopSample.setEnabled(false);
             mRecording = false;
+            mRecorder.stop();
         }
+        if (swAutorestart.isChecked()) {
+            startSample(v);
+        }
+    }
+
+    private void sendSample() {
+        final String fileName = mFileName;
+        new Thread(new Runnable() {
+            //Thread to stop network calls on the UI thread
+            public void run() {
+                String quality = "44000";
+                String maxLevel = "1";
+                String averageLevel = ".5";
+
+                String url = BASE_URL + "sampleData/" + mSensorId + "/" + mCurrentToken + "/" + quality + "/" + maxLevel + '_' + averageLevel;
+
+                File file = new File(fileName);
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+
+                    HttpPost httppost = new HttpPost(url);
+
+                    InputStreamEntity reqEntity = new InputStreamEntity(new FileInputStream(file), -1);
+                    reqEntity.setContentType("binary/octet-stream");
+                    reqEntity.setChunked(false);
+                    httppost.setEntity(reqEntity);
+                    httpclient.execute(httppost);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                file.delete();
+            }
+        }).start();
     }
 
     public void registerSensor(View v) {
@@ -111,21 +166,28 @@ public class Sensor extends Activity {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onFailure(Throwable e, JSONObject errorResponse) {
+                super.onFailure(e, errorResponse);
+            }
         });
     }
 
     private void loadSensorDetails() {
         SharedPreferences prefs = getSharedPreferences("sensor", MODE_PRIVATE);
-        tSensorId.setText(prefs.getString("sensor_id", ""));
+        mSensorId = prefs.getString("sensor_id", "");
+        tSensorId.setText(mSensorId);
         tSensorName.setText(prefs.getString("sensor_name", ""));
         tLongitude.setText(prefs.getString("sensor_longitude", ""));
         tLatitude.setText(prefs.getString("sensor_latitude", ""));
         tAccuracy.setText(prefs.getString("sensor_accuracy", ""));
+
     }
 
     private void saveSensorDetails() {
         SharedPreferences prefs = getSharedPreferences("sensor", MODE_PRIVATE);
-        SharedPreferences.Editor editor =  prefs.edit();
+        SharedPreferences.Editor editor = prefs.edit();
         editor.putString("sensor_id", tSensorId.getText().toString());
         editor.putString("sensor_name", tSensorName.getText().toString());
         editor.putString("sensor_longitude", tLongitude.getText().toString());
