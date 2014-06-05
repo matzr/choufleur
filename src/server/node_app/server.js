@@ -66,23 +66,22 @@ app.get('/samples/:sensorId', function(req, res) {
 
 app.get('/samples/:sensorId/:dtFrom/:dtTo', function(req, res) {
     dataConnector.getAll('sample', [{
-            field: 'sensor_id',
-            value: req.params.sensorId
-        },
-        {
-            field: 'sample_start_date',
-            comparator: '>=',
-            value: new Date(parseInt(req.params.dtFrom, 10))
-        }, {
-            field: 'sample_start_date',
-            comparator: '<=',
-            value: new Date(parseInt(req.params.dtTo, 10))
+        field: 'sensor_id',
+        value: req.params.sensorId
+    }, {
+        field: 'sample_start_date',
+        comparator: '>=',
+        value: new Date(parseInt(req.params.dtFrom, 10))
+    }, {
+        field: 'sample_start_date',
+        comparator: '<=',
+        value: new Date(parseInt(req.params.dtTo, 10))
     }]).
     then(function(samples) {
         res.json(samples);
     })
 });
-    
+
 app.get('/sample/:sampleId', function(req, res) {
     dataConnector.getAll('sample', [{
         field: 'sampleUid',
@@ -109,6 +108,10 @@ app.get('/sample/:sampleId', function(req, res) {
     });
 });
 
+function convertFile(mp4, mp3) {
+    exec('ffmpeg -i ' + mp4 + ' -acodec libmp3lame -b:a 24k  -f mp3 ' + mp3);
+}
+
 app.post('/sampleData/:sensorId/:token/:quality/:soundLevels', function(req, res) {
     var sensorId = req.params.sensorId;
     var token = req.params.token;
@@ -129,16 +132,12 @@ app.post('/sampleData/:sensorId/:token/:quality/:soundLevels', function(req, res
         }
 
         var filename = FILE_STORAGE_BASE + bucket + '/' + token + '.mp3';
-        var mp4Filename = filename + '.mp4';
-        req.pipe(fs.createWriteStream(mp4Filename));
+        var mp4Filename = filename + '.m4a';
+        var writeStream = fs.createWriteStream(mp4Filename);
+        req.pipe(writeStream);
 
         req.on('end', function() {
-            // new ffmpeg({
-            //     source: mp4Filename
-            // })
-            //     .toFormat('mp3')
-            //     .saveToFile(filename);
-            exec('ffmpeg -i ' + mp4Filename + ' -acodec libmp3lame -b:a 24k  -f mp3 ' + filename);
+            convertFile(mp4Filename, filename);
         });
 
         var sample = {

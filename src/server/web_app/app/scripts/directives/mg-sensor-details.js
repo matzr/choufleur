@@ -54,6 +54,9 @@
                                     return parseFloat(sample.sample_average_sound_level);
                                 }).sample_average_sound_level);
                                 $scope.soundLevelAmplitude = $scope.maxSoundLevel - $scope.minSoundLevel;
+                                if ($scope.soundLevelAmplitude === 0) {
+                                    $scope.soundLevelAmplitude = 1;
+                                }
                                 $scope.loading = false;
                             });
                         }
@@ -111,6 +114,7 @@
 
                         $scope.getCssPosition = function(sample) {
                             if (sample) {
+                                sample.sample_average_sound_level = parseFloat(sample.sample_average_sound_level);
                                 var red = parseInt((sample.sample_average_sound_level - $scope.minSoundLevel) / $scope.soundLevelAmplitude * 255, 10);
                                 var green = 255 - parseInt((sample.sample_average_sound_level - $scope.minSoundLevel) / $scope.soundLevelAmplitude * 255, 10);
                                 var color = 'rgba(' + red + ', ' + green + ', 0, .7' + ');';

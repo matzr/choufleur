@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class Sensor extends Activity {
     private static final String LOG_TAG = "ChouFleur Sensor";
 
     //    private static final String BASE_URL = "http://home.mathieugardere.com:21177/";
-    private static final String BASE_URL = "http://192.168.1.8:21177/";
+    private static final String BASE_URL = "http://192.168.30.177:21177/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
     private MediaRecorder mRecorder;
@@ -45,6 +46,7 @@ public class Sensor extends Activity {
     private TextView tSensorId;
     private SeekBar sbDuration;
     private Switch swAutorestart;
+    private TextView tDuration;
 
     private String mSensorId;
     private String mCurrentToken;
@@ -62,6 +64,7 @@ public class Sensor extends Activity {
         bStopSample = (Button) findViewById(R.id.bStopSample);
 
         tSensorId = (TextView) findViewById(R.id.txtSensorId);
+        tDuration = (TextView) findViewById(R.id.tDuration);
         tSensorName = (EditText) findViewById(R.id.tSensorName);
         tLongitude = (EditText) findViewById(R.id.tLongitude);
         tLatitude = (EditText) findViewById(R.id.tLatitude);
@@ -69,7 +72,28 @@ public class Sensor extends Activity {
         sbDuration = (SeekBar) findViewById(R.id.sbDuration);
         swAutorestart = (Switch) findViewById(R.id.swAutorestart);
 
+        sbDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                tDuration.setText(String.valueOf(getDuration()));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         loadSensorDetails();
+    }
+
+    private int getDuration() {
+        return sbDuration.getProgress() + 5;
     }
 
     public void startSample(View v) {
@@ -80,10 +104,10 @@ public class Sensor extends Activity {
 
             mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
             mFileName += "/" + UUID.randomUUID().toString();
-            mCurrentToken = System.currentTimeMillis() + "_" + sbDuration.getProgress();
+            mCurrentToken = System.currentTimeMillis() + "_" + getDuration();
 
             mRecorder.setOutputFile(mFileName);
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
 
             try {
                 mRecorder.prepare();
@@ -102,17 +126,19 @@ public class Sensor extends Activity {
                 public void run() {
                     stopSample(null);
                 }
-            }, sbDuration.getProgress() * 1000);
+            }, getDuration() * 1000);
         }
     }
 
     public void stopSample(View v) {
         if (mRecording) {
-            sendSample();
             bStartSample.setEnabled(true);
             bStopSample.setEnabled(false);
             mRecording = false;
             mRecorder.stop();
+            mRecorder.release();
+            mRecorder = null;
+            sendSample();
         }
         if (swAutorestart.isChecked()) {
             startSample(v);
@@ -121,32 +147,30 @@ public class Sensor extends Activity {
 
     private void sendSample() {
         final String fileName = mFileName;
-        new Thread(new Runnable() {
-            //Thread to stop network calls on the UI thread
-            public void run() {
-                String quality = "44000";
-                String maxLevel = "1";
-                String averageLevel = ".5";
+        String quality = "44000";
+        String maxLevel = "1";
+        String averageLevel = ".5";
 
-                String url = BASE_URL + "sampleData/" + mSensorId + "/" + mCurrentToken + "/" + quality + "/" + maxLevel + '_' + averageLevel;
+        String url = BASE_URL + "sampleData/" + mSensorId + "/" + mCurrentToken + "/" + quality + "/" + maxLevel + '_' + averageLevel;
 
-                File file = new File(fileName);
-                try {
-                    HttpClient httpclient = new DefaultHttpClient();
-
-                    HttpPost httppost = new HttpPost(url);
-
-                    InputStreamEntity reqEntity = new InputStreamEntity(new FileInputStream(file), -1);
-                    reqEntity.setContentType("binary/octet-stream");
-                    reqEntity.setChunked(false);
-                    httppost.setEntity(reqEntity);
-                    httpclient.execute(httppost);
-                } catch (Exception e) {
-                    e.printStackTrace();
+        try {
+            final File file = new File(fileName);
+            client.post(Sensor.this, url, new InputStreamEntity(new FileInputStream(file), -1), "audio/mp4", new JsonHttpResponseHandler() {
+                @Override
+                public void onFailure(Throwable e, JSONObject errorResponse) {
+                    super.onFailure(e, errorResponse);
+                    file.delete();
                 }
-                file.delete();
-            }
-        }).start();
+
+                @Override
+                public void onSuccess(JSONObject response) {
+                    super.onSuccess(response);
+                    file.delete();
+                }
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void registerSensor(View v) {
