@@ -55,6 +55,19 @@
     <![endif]-->
 
     <!-- build:js scripts/vendor.js -->
+
+    <!-- cryptography -->
+    <script src="MochiKit/MochiKit.js" type="text/javascript"></script>
+    <script src="Clipperz/Base.js" type="text/javascript"></script>
+    <script src="Clipperz/ByteArray.js" type="text/javascript"></script>
+    <script src="Clipperz/Crypto/BigInt.js" type="text/javascript"></script>
+    <script src="Clipperz/Crypto/SHA.js" type="text/javascript"></script>
+    <script src="Clipperz/Crypto/AES.js" type="text/javascript"></script>
+    <script src="Clipperz/Crypto/PRNG.js" type="text/javascript"></script>
+    <script src="bCrypt.js"></script>
+    <script src="sha1.js"></script>
+    <!-- end cryptography -->
+
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -66,6 +79,7 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/momentjs/moment.js"></script>
     <!-- endbower -->
+
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -73,6 +87,8 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/sensors-controller.js"></script>
     <script src="scripts/controllers/sensor-details-controller.js"></script>
+    <script src="scripts/controllers/logon-controller.js"></script>
+    <script src="scripts/controllers/register-user-controller.js"></script>
     <script src="scripts/controllers/sensors-overview-controller.js"></script>
     <script src="scripts/directives/mg-timeline.js"></script>
     <script src="scripts/directives/mg-sensor-details.js"></script>

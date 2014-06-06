@@ -25,7 +25,8 @@
                             var percentageOfTimeline = ($scope.getEventTime()(event) - $scope.minValue) / $scope.valueSpread * 100;
                             var style = 'left: ' + percentageOfTimeline + '%; ';
                             percentageOfTimeline = ($scope.getEventDuration()(event) * 1000) / $scope.valueSpread * 100;
-                            style += 'width: ' + percentageOfTimeline + '%; ';
+                            var widthInPix = $scope.$timeline.width() * percentageOfTimeline / 100;
+                            style += 'width: ' + ((widthInPix < 1)?'1px;':(percentageOfTimeline + '%;'));
                             if ($scope.getCss) {
                                 style += $scope.getCss()(event);
                             }
@@ -44,6 +45,7 @@
                     console.log('linked');
 
                     var $timeline = $(element);
+                    $scope.$timeline = $timeline;
                     var startValue;
                     var endValue;
                     var dragging;

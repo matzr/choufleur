@@ -16,7 +16,7 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/', {
+      .when('/sensors', {
         templateUrl: 'views/sensors.html',
         controller: 'SensorsCtrl'
       })
@@ -28,10 +28,19 @@ angular
         templateUrl: 'views/sensors-overview.html',
         controller: 'SensorsOverviewCtrl'
       })
+      .when('/', {
+        templateUrl: 'views/logon.html',
+        controller: 'LogonCtrl'
+      })
+      .when('/register', {
+        templateUrl: 'views/register-user.html',
+        controller: 'RegisterUserCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .value('session', {});
 
   angular.module('choufleur.services', []);
   angular.module('choufleur.directives', []);

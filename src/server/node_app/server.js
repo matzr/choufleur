@@ -5,13 +5,18 @@ var mkdirp = require('mkdirp');
 var moment = require('moment');
 var app = express();
 var exec = require('child_process').exec;
+var bcrypt = require('bcrypt');
+var _ = require('underscore');
 
 var guid = require('./guid.js').guid;
 var dataConnector = require('./data-connector.js');
-
+var sessionManagement = require('./session-management.js');
 
 var PORT = 21177;
 var FILE_STORAGE_BASE = __dirname + '/file_storage/';
+
+var success_status = 'SUCCESS';
+var failure_status = 'FAILURE';
 
 var samplesListeners = [];
 
@@ -30,12 +35,12 @@ app.post('/sensor', function(req, response) {
     dataConnector.save('sensor', sensor).
     then(function() {
         response.json({
-            status: 'SUCCESS',
+            status: success_status,
             sensor: sensor
         });
     }, function(error) {
         response.json({
-            status: 'FAILURE',
+            status: failure_status,
             error: error
         });
     });
@@ -47,63 +52,179 @@ function getBucketForSensor(sensorId, startDate) {
 }
 
 
-app.get('/sensors', function(req, res) {
-    dataConnector.getAll('sensor').
-    then(function(sensors) {
-        res.json(sensors);
-    })
+app.get('/auth/challenge', function(req, res) {
+    res.json({
+        challenge_part1: '' + _.now(),
+        challenge_part2: guid(),
+        salt: bcrypt.genSaltSync(10)
+    });
 });
 
-app.get('/samples/:sensorId', function(req, res) {
-    dataConnector.getAll('sample', [{
-        field: 'sensor_id',
-        value: req.params.sensorId
-    }]).
-    then(function(samples) {
-        res.json(samples);
-    })
-});
+function checkSession(token, res, callback) {
+    sessionManagement.getSessionToken(token).then(callback,
+        function() {
+            res.json({
+                status: failure_status,
+                error: 'SESSION_EXPIRED'
+            });
+        });
+}
 
-app.get('/samples/:sensorId/:dtFrom/:dtTo', function(req, res) {
-    dataConnector.getAll('sample', [{
-        field: 'sensor_id',
-        value: req.params.sensorId
-    }, {
-        field: 'sample_start_date',
-        comparator: '>=',
-        value: new Date(parseInt(req.params.dtFrom, 10))
-    }, {
-        field: 'sample_start_date',
-        comparator: '<=',
-        value: new Date(parseInt(req.params.dtTo, 10))
-    }]).
-    then(function(samples) {
-        res.json(samples);
-    })
-});
+function getSessionToken(username) {
+    var token = guid();
+    sessionManagement.setSessionToken(token, username)
+    return token;
+}
 
-app.get('/sample/:sampleId', function(req, res) {
-    dataConnector.getAll('sample', [{
-        field: 'sampleUid',
-        value: req.params.sampleId
+app.post('/auth/register', function(req, res) {
+    dataConnector.getAll('user', [{
+        field: 'username',
+        value: req.body.username
     }]).
-    then(function(rows) {
-        var filePath = rows[0].path;
-        fs.stat(filePath, function(error, stat) {
-            if (error) {
+    then(function(users) {
+        if (users.length === 0) {
+            dataConnector.save('user', {
+                username: req.body.username,
+                password: req.body.sha1password
+            }).then(function() {
                 res.json({
-                    status: 'FAILURE',
+                    status: success_status,
+                    message: 'user created'
+                });
+            }, function() {
+                res.json({
+                    status: failure_status,
                     error: error
                 });
-            } else {
-                res.writeHead(200, {
-                    'Content-Type': 'audio/mp3',
-                    'Content-Length': stat.size
-                });
+            });
+        } else {
+            res.json({
+                status: failure_status,
+                error: 'Username in use'
+            });
+        }
+    })
 
-                var readStream = fs.createReadStream(filePath);
-                readStream.pipe(res);
+});
+
+
+//authentication method expect the client to send 
+// a USERNAME in clear
+// a PASSWORD SHA1ed and encrypted with random salt value AND changing keys (challenges) expiring after 5 seconds, for 2 reasons
+//      1. passwords are not persisted in clear in the DB
+//      2. the changing keys ensure that a middle man attack cannot let the attackers reuse the keys
+app.post('/auth', function(req, res) {
+    var MAX_CHALLENGE_AGE_IN_SECONDS = 5;
+
+    var challenge_part1 = req.body.challenge_part1;
+    var challenge_part2 = req.body.challenge_part2;
+    var salt = req.body.salt;
+
+    console.log('challenge_part1 age ' + Math.abs(parseInt(challenge_part1, 10) - _.now()));
+    if (Math.abs(parseInt(challenge_part1, 10) - _.now()) > MAX_CHALLENGE_AGE_IN_SECONDS * 1000) {
+        res.json({
+            status: failure_status,
+            error: 'Challenge is too old (more than ' + MAX_CHALLENGE_AGE_IN_SECONDS + ' seconds)'
+        });
+    } else {
+        var username = req.body.username;
+        dataConnector.getAll('user', [{
+            field: 'username',
+            value: username
+        }]).
+        then(function(users) {
+            if (users.length === 0) {
+                console.log('no user \'' + username + '\' found');
+                res.json({
+                    status: failure_status,
+                    error: 'Incorrect username or password'
+                });
+            } else {
+                var hash = bcrypt.hashSync(users[0].password + challenge_part1 + challenge_part2, salt);
+                if (hash === req.body.password) {
+                    res.json({
+                        status: success_status,
+                        token: getSessionToken(username)
+                    });
+                } else {
+                    res.json({
+                        status: failure_status,
+                        error: 'Incorrect password'
+                    });
+                }
             }
+        })
+    }
+});
+
+app.get('/sensors/:sessionToken', function(req, res) {
+    checkSession(req.params.sessionToken, res, function() {
+        dataConnector.getAll('sensor').
+        then(function(sensors) {
+            res.json({
+                status: success_status,
+                sensors: sensors
+            });
+        });
+    });
+});
+
+app.get('/samples/:sessionToken/:sensorId', function(req, res) {
+    checkSession(req.params.sessionToken, res, function() {
+        dataConnector.getAll('sample', [{
+            field: 'sensor_id',
+            value: req.params.sensorId
+        }]).
+        then(function(samples) {
+            res.json(samples);
+        })
+    });
+});
+
+app.get('/samples/:sessionToken/:sensorId/:dtFrom/:dtTo', function(req, res) {
+    checkSession(req.params.sessionToken, res, function() {
+        dataConnector.getAll('sample', [{
+            field: 'sensor_id',
+            value: req.params.sensorId
+        }, {
+            field: 'sample_start_date',
+            comparator: '>=',
+            value: new Date(parseInt(req.params.dtFrom, 10))
+        }, {
+            field: 'sample_start_date',
+            comparator: '<=',
+            value: new Date(parseInt(req.params.dtTo, 10))
+        }]).
+        then(function(samples) {
+            res.json(samples);
+        })
+    });
+});
+
+app.get('/sample/:sessionToken/:sampleId', function(req, res) {
+    checkSession(req.params.sessionToken, res, function() {
+        dataConnector.getAll('sample', [{
+            field: 'sampleUid',
+            value: req.params.sampleId
+        }]).
+        then(function(rows) {
+            var filePath = rows[0].path;
+            fs.stat(filePath, function(error, stat) {
+                if (error) {
+                    res.json({
+                        status: failure_status,
+                        error: error
+                    });
+                } else {
+                    res.writeHead(200, {
+                        'Content-Type': 'audio/mp3',
+                        'Content-Length': stat.size
+                    });
+
+                    var readStream = fs.createReadStream(filePath);
+                    readStream.pipe(res);
+                }
+            });
         });
     });
 });
@@ -154,11 +275,11 @@ app.post('/sampleData/:sensorId/:token/:quality/:soundLevels', function(req, res
         dataConnector.save('sample', sample).then(function() {
             broadcast('sample', sample);
             res.json({
-                status: 'SUCCESS'
+                status: success_status
             });
         }, function() {
             res.json({
-                status: 'FAILURE',
+                status: failure_status,
                 error: error
             });
         });
@@ -188,6 +309,7 @@ function removeListener(listener) {
 }
 
 
+//TODO: session token check
 io.sockets.on('connection', function(socket) {
     addListener(socket);
 

@@ -12,8 +12,8 @@
                     sensorName: '='
                 },
                 templateUrl: 'views/directives/mg-sensor-details.html',
-                controller: ['$scope', '$http', 'socket', '$timeout',
-                    function($scope, $http, socket, $timeout) {
+                controller: ['$scope', '$http', 'socket', '$timeout', 'session',
+                    function($scope, $http, socket, $timeout, session) {
                         $scope.dtFrom = moment().startOf('day').valueOf();
                         $scope.dtTo = moment().endOf('day').valueOf();
                         $scope.minSoundLevel = 100;
@@ -40,7 +40,7 @@
                             $scope.samples = [];
                             $scope.currentlyPlaying = null;
                             $scope.loading = true;
-                            $http.get('/samples/' + $scope.sensorId + '/' + $scope.dtFrom + '/' + $scope.dtTo).success(function(samples) {
+                            $http.get('/samples/'  + session.token + '/' + $scope.sensorId + '/' + $scope.dtFrom + '/' + $scope.dtTo).success(function(samples) {
                                 $scope.samples = samples.sort(function(a, b) {
                                     if (a.sample_start_date < b.sample_start_date) return 1;
                                     if (b.sample_start_date < a.sample_start_date) return -1;
