@@ -10,7 +10,11 @@ var _ = require('underscore');
 
 var guid = require('./guid.js').guid;
 var dataConnector = require('./data-connector.js');
+
 var sessionManagement = require('./session-management.js');
+var notificationsManagement = require('./notifications-management.js');
+
+var notificationsManagement = require('./notifications-management.js');
 
 var PORT = 21177;
 var FILE_STORAGE_BASE = __dirname + '/file_storage/';
@@ -289,6 +293,7 @@ function acceptSoundSample(sensorId, token, quality, soundLevels, req, res) {
                 res.json({
                     status: success_status
                 });
+                notificationsManagement.notify(sensorId, sample.sampleUid);
             }, function() {
                 res.json({
                     status: failure_status,
@@ -344,20 +349,18 @@ app.post('/samplePicture/:sensorId/:token', function(req, res) {
                 res.json({
                     status: success_status
                 });
+                notificationsManagement.notify(sensorId, sample.sampleUid);
             }, function() {
                 res.json({
                     status: failure_status,
                     error: error
                 });
             });
+
         });
     });
 
 });
-
-
-
-
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -381,7 +384,6 @@ function removeListener(listener) {
     }
 }
 
-
 //TODO: session token check
 io.sockets.on('connection', function(socket) {
     addListener(socket);
@@ -389,7 +391,6 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function() {
         removeListener(socket);
     });
-
 });
 
 
