@@ -77,6 +77,7 @@ li {
     border: 1px solid #aaa;
     overflow: hidden;
     height: 50px;
+    background: linear-gradient(to bottom, #eee 0%, #ccc 100%);;
 }
 .timeline .event {
     width: 1px;
@@ -144,7 +145,7 @@ li {
   text-align: center;
   left: 50%;
   margin-left: -50px;
-  top: 15px;
+  top: 3px;
 }
 
 .timeline-and-controls .after, .timeline-and-controls .before {
@@ -163,8 +164,17 @@ li {
   font-weight: bold;
 }
 
+.timeline-and-controls .before {
+  border-radius: 5px 0 0 5px;
+}
+
+.timeline-and-controls .after {
+  border-radius: 0 5px 5px 0;
+}
+
 .timeline-and-controls .after:hover, .timeline-and-controls .before:hover {
   background: #777;
+  text-decoration: none;
 }
 
 .timeline-and-controls .after:active, .timeline-and-controls .before:active {
@@ -173,11 +183,7 @@ li {
   border-top: 1px solid #555;
   border-right: 1px solid #bbb;
   border-bottom: 1px solid #bbb;
-}
-
-.autoplay {
-  text-align: center;
-  font-size: 20px;
+  text-decoration: none;
 }
 
 .currently-playing {
@@ -186,4 +192,42 @@ li {
 
 h1 {
   text-align: center;
+}
+
+.sensor-header {
+  position:relative;
+  height: 30px;
+}
+
+.sensor-header > div {
+  position: absolute;
+  top: 0;
+}
+
+.sensor-header .options {
+  right: 0;
+}
+
+.sensor-details .pictures {
+  width: 700px;
+  height: 50px;
+  background: linear-gradient(to bottom, #eee 0%, #ccc 100%);
+  border: 1px solid #aaa;
+  margin-top: 10px;
+}
+
+.sensor-details .pictures {
+  overflow-x: scrollbars;
+  overflow-y: hidden;
+}
+
+.sensor-details .pictures .thumbnail {
+  float:left ;
+  background-size: contain;
+  border: 1px solid #888;
+  margin-right: 5px;
+  height: 50px;
+  width: 37px;
+  border-radius: 0;
+  background-repeat: no-repeat;
 }

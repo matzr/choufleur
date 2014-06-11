@@ -30,8 +30,8 @@ import java.util.UUID;
 public class Sensor extends Activity {
     private static final String LOG_TAG = "ChouFleur Sensor";
 
-    //private static final String BASE_URL = "http://home.mathieugardere.com:21177/";
-    private static final String BASE_URL = "http://192.168.30.249:21177/";
+    private static final String BASE_URL = "http://home.mathieugardere.com:21177/";
+    //private static final String BASE_URL = "http://192.168.30.249:21177/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
     private MediaRecorder mRecorder;
@@ -107,7 +107,8 @@ public class Sensor extends Activity {
             mCurrentToken = System.currentTimeMillis() + "_" + getDuration();
 
             mRecorder.setOutputFile(mFileName);
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
+
 
             try {
                 mRecorder.prepare();

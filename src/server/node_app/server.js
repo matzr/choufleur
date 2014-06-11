@@ -76,6 +76,15 @@ function getSessionToken(username) {
     return token;
 }
 
+app.get('/ping/:token', function(req, res) {
+    checkSession(req.params.token, res, function() {
+        res.json({
+            status: success_status,
+            message: 'PONG'
+        });
+    });
+});
+
 app.post('/auth/register', function(req, res) {
     dataConnector.getAll('user', [{
         field: 'username',
@@ -208,7 +217,8 @@ app.get('/sample/:sessionToken/:sampleId', function(req, res) {
             value: req.params.sampleId
         }]).
         then(function(rows) {
-            var filePath = rows[0].path;
+            var sample = rows[0];
+            var filePath = sample.path;
             fs.stat(filePath, function(error, stat) {
                 if (error) {
                     res.json({
@@ -217,7 +227,7 @@ app.get('/sample/:sessionToken/:sampleId', function(req, res) {
                     });
                 } else {
                     res.writeHead(200, {
-                        'Content-Type': 'audio/mp3',
+                        'Content-Type': (sample.sample_type)==='audio'? 'audio/mp3':'image/jpeg',
                         'Content-Length': stat.size
                     });
 
@@ -233,10 +243,12 @@ function convertFile(mp4, mp3) {
     exec('ffmpeg -i ' + mp4 + ' -acodec libmp3lame -b:a 24k  -f mp3 ' + mp3);
 }
 
-app.post('/sampleData/:sensorId/:token/:quality/:soundLevels', function(req, res) {
-    var sensorId = req.params.sensorId;
-    var token = req.params.token;
-    var soundLevels = req.params.soundLevels;
+
+
+function acceptSoundSample(sensorId, token, quality, soundLevels, req, res) {
+    var sensorId = sensorId;
+    var token = token;
+    var soundLevels = soundLevels;
 
     var maxSoundLevel = soundLevels.split('_')[0];
     var avgSoundLevel = soundLevels.split('_')[1];
@@ -259,32 +271,93 @@ app.post('/sampleData/:sensorId/:token/:quality/:soundLevels', function(req, res
 
         req.on('end', function() {
             convertFile(mp4Filename, filename);
-        });
 
-        var sample = {
-            sensor_id: req.params.sensorId,
-            path: filename,
-            sampleUid: guid(),
-            sample_quality: req.params.quality,
-            sample_max_sound_level: maxSoundLevel,
-            sample_average_sound_level: avgSoundLevel,
-            sample_start_date: startDate,
-            sample_duration: duration
-        };
+            var sample = {
+                sensor_id: sensorId,
+                path: filename,
+                sampleUid: guid(),
+                sample_quality: quality,
+                sample_max_sound_level: maxSoundLevel,
+                sample_average_sound_level: avgSoundLevel,
+                sample_start_date: startDate,
+                sample_duration: duration,
+                sample_type: 'audio' //a-ew-dee-oh
+            };
 
-        dataConnector.save('sample', sample).then(function() {
-            broadcast('sample', sample);
-            res.json({
-                status: success_status
-            });
-        }, function() {
-            res.json({
-                status: failure_status,
-                error: error
+            dataConnector.save('sample', sample).then(function() {
+                broadcast('sample', sample);
+                res.json({
+                    status: success_status
+                });
+            }, function() {
+                res.json({
+                    status: failure_status,
+                    error: error
+                });
             });
         });
     });
+}
+
+//TODO: deprecate this API (sample type should be specified)
+app.post('/sampleData/:sensorId/:token/:quality/:soundLevels', function(req, res) {
+    acceptSoundSample(req.params.sensorId, req.params.token, req.params.quality, req.params.soundLevels, req, res);
 });
+
+
+
+
+app.post('/samplePicture/:sensorId/:token', function(req, res) {
+    var token = req.params.token;
+    var sensorId = req.params.sensorId;
+
+    var startDate = new Date(parseInt(token, 10));
+    var bucket = getBucketForSensor(sensorId, startDate);
+
+    var path = FILE_STORAGE_BASE + bucket;
+
+    mkdirp(path, function(err) {
+        if (err) {
+            throw err;
+        }
+
+        var filename = FILE_STORAGE_BASE + bucket + '/' + token + '.png';
+        var writeStream = fs.createWriteStream(filename);
+        req.pipe(writeStream);
+
+        req.on('end', function() {
+            res.json({
+                status: 'SUCCESS',
+                message: 'Sample correctly uploaded.'
+            });
+
+            var sample = {
+                sensor_id: sensorId,
+                path: filename,
+                sampleUid: guid(),
+                sample_start_date: startDate,
+                sample_type: 'picture' //a-ew-dee-oh
+            };
+
+            dataConnector.save('sample', sample).then(function() {
+                broadcast('sample', sample);
+                res.json({
+                    status: success_status
+                });
+            }, function() {
+                res.json({
+                    status: failure_status,
+                    error: error
+                });
+            });
+        });
+    });
+
+});
+
+
+
+
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);

@@ -40,7 +40,6 @@ NSString * kSampleRateKey = @"sampleRate";
 NSString * kStartDateKey = @"startDate";
 NSString * kDurationKey = @"duration";
 
-
 float sampleRate = 11025.0;
 int numberOfChannels = 1;
 int quality = AVAudioQualityMin;
@@ -229,7 +228,7 @@ int quality = AVAudioQualityMin;
     int quality = (int)[[currentSampleDetails valueForKey:kSampleRateKey] floatValue];
     float maxLevel = [[currentSampleDetails valueForKey:kMaxLevelKey] floatValue];
     float averageLevel = [[currentSampleDetails valueForKey:kAverageLevelKey] floatValue];
-    
+
     NSString *urlString = [BASE_URL stringByAppendingString:[NSString stringWithFormat:@"sampleData/%@/%@/%d/%f_%f", sensorId, token, quality, maxLevel, averageLevel]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
     [request setURL:[NSURL URLWithString:urlString]];
