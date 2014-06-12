@@ -29,8 +29,6 @@ int MAX_DURATION_PER_SAMPLE = 60;
 float LEVEL_THRESHOLD_TO_SEND = .07;
 BOOL ASYNC_POST = YES;
 
-NSString * BASE_URL = @"http://choufleur.mathieugardere.com:21177/";
-//NSString * BASE_URL = @"http://localhost:21177/";
 
 
 NSString * kAverageLevelKey = @"averageLevel";
@@ -83,7 +81,7 @@ int quality = AVAudioQualityMin;
 
 - (IBAction)registerSensor:(id)sender {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
-    [request setURL:[NSURL URLWithString:[BASE_URL stringByAppendingString:@"sensor"]]];
+    [request setURL:[NSURL URLWithString:[appdel.baseUrl stringByAppendingString:@"sensor"]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
@@ -229,7 +227,7 @@ int quality = AVAudioQualityMin;
     float maxLevel = [[currentSampleDetails valueForKey:kMaxLevelKey] floatValue];
     float averageLevel = [[currentSampleDetails valueForKey:kAverageLevelKey] floatValue];
 
-    NSString *urlString = [BASE_URL stringByAppendingString:[NSString stringWithFormat:@"sampleData/%@/%@/%d/%f_%f", sensorId, token, quality, maxLevel, averageLevel]];
+    NSString *urlString = [appdel.baseUrl stringByAppendingString:[NSString stringWithFormat:@"sampleData/%@/%@/%d/%f_%f", sensorId, token, quality, maxLevel, averageLevel]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
     [request setURL:[NSURL URLWithString:urlString]];
     [request setHTTPMethod:@"POST"];

@@ -29,27 +29,6 @@ app.use(express.static(__dirname + '/../web_app/app/'));
 
 app.use(bodyParser());
 
-app.post('/sensor', function(req, response) {
-    var sensor = {
-        sensor_id: req.body.sensor_id || guid(),
-        sensor_name: req.body.name,
-        sensor_coordinates: req.body.latitude + ' / ' + req.body.longitude,
-        sensor_accuracy: req.body.accuracy
-    };
-    dataConnector.save('sensor', sensor).
-    then(function() {
-        response.json({
-            status: success_status,
-            sensor: sensor
-        });
-    }, function(error) {
-        response.json({
-            status: failure_status,
-            error: error
-        });
-    });
-});
-
 
 function getBucketForSensor(sensorId, startDate) {
     return sensorId + '/' + moment(startDate).format("YYYYMMDD") + '/' + moment(startDate).format("HH");
@@ -331,11 +310,6 @@ app.post('/samplePicture/:sensorId/:token', function(req, res) {
         req.pipe(writeStream);
 
         req.on('end', function() {
-            res.json({
-                status: 'SUCCESS',
-                message: 'Sample correctly uploaded.'
-            });
-
             var sample = {
                 sensor_id: sensorId,
                 path: filename,
@@ -347,7 +321,8 @@ app.post('/samplePicture/:sensorId/:token', function(req, res) {
             dataConnector.save('sample', sample).then(function() {
                 broadcast('sample', sample);
                 res.json({
-                    status: success_status
+                    status: success_status,
+                    message: 'Sample correctly uploaded.'
                 });
                 notificationsManagement.notify(sensorId, sample.sampleUid);
             }, function() {

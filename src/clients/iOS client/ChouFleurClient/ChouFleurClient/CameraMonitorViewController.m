@@ -22,11 +22,6 @@
 
 @implementation CameraMonitorViewController
 
-
-//NSString * BASE_URL = @"http://choufleur.mathieugardere.com:21177/";
-//NSString * BASE_URL = @"http://localhost:21177/";
-NSString * BASE_URL_ = @"http://192.168.30.177:21177/";
-
 const float MOTION_DETECTION_THRESHOLD = 0.005;
 const int NB_OF_PICTURES_TO_SEND_ON_DETECTION = 5;
 
@@ -108,7 +103,7 @@ const int NB_OF_PICTURES_TO_SEND_ON_DETECTION = 5;
             NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
             NSString *sensorId = [prefs stringForKey:@"sensorId"];
             NSString *token = [NSString stringWithFormat:@"%lld", ((long long)([[NSDate date] timeIntervalSince1970] * 1000))];
-            NSString *urlString = [BASE_URL_ stringByAppendingString:[NSString stringWithFormat:@"samplePicture/%@/%@", sensorId, token]];
+            NSString *urlString = [appdel.baseUrl stringByAppendingString:[NSString stringWithFormat:@"samplePicture/%@/%@", sensorId, token]];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
             [request setURL:[NSURL URLWithString:urlString]];
             [request setHTTPMethod:@"POST"];

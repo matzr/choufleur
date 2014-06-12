@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -42,5 +43,12 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+-(NSString *)baseUrl {
+//    return @"http://choufleur.mathieugardere.com:21177/";
+    return @"http://192.168.1.102:21177/";
+//    return @"http://choufleur.mathieugardere.com:21177/";
+}
+
 
 @end

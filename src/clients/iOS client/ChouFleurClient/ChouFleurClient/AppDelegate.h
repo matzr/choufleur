@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#define appdel ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, readonly) NSString *baseUrl;
 
 @end

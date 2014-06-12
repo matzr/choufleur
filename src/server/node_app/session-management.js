@@ -22,7 +22,7 @@ function getSessionToken(token) {
 	    } else {
 	        if (reply) {
 				pingSessionToken(token);
-	        	deferred.resolve();
+	        	deferred.resolve(reply);
 	        } else {
 	        	deferred.reject();
 	        }
