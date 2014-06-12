@@ -13,14 +13,12 @@ var dataConnector = require('./data-connector.js');
 
 var sessionManagement = require('./session-management.js');
 var notificationsManagement = require('./notifications-management.js');
-
-var notificationsManagement = require('./notifications-management.js');
+var registration = require('./registration.js');
+var json_statuses = require('./json-values.js').statuses;
 
 var PORT = 21177;
 var FILE_STORAGE_BASE = __dirname + '/file_storage/';
 
-var success_status = 'SUCCESS';
-var failure_status = 'FAILURE';
 
 var samplesListeners = [];
 
@@ -47,7 +45,7 @@ function checkSession(token, res, callback) {
     sessionManagement.getSessionToken(token).then(callback,
         function() {
             res.json({
-                status: failure_status,
+                status: json_statuses.failure,
                 error: 'SESSION_EXPIRED'
             });
         });
@@ -62,7 +60,7 @@ function getSessionToken(username) {
 app.get('/ping/:token', function(req, res) {
     checkSession(req.params.token, res, function() {
         res.json({
-            status: success_status,
+            status: json_statuses.success,
             message: 'PONG'
         });
     });
@@ -80,18 +78,18 @@ app.post('/auth/register', function(req, res) {
                 password: req.body.sha1password
             }).then(function() {
                 res.json({
-                    status: success_status,
+                    status: json_statuses.success,
                     message: 'user created'
                 });
             }, function() {
                 res.json({
-                    status: failure_status,
+                    status: json_statuses.failure,
                     error: error
                 });
             });
         } else {
             res.json({
-                status: failure_status,
+                status: json_statuses.failure,
                 error: 'Username in use'
             });
         }
@@ -115,7 +113,7 @@ app.post('/auth', function(req, res) {
     console.log('challenge_part1 age ' + Math.abs(parseInt(challenge_part1, 10) - _.now()));
     if (Math.abs(parseInt(challenge_part1, 10) - _.now()) > MAX_CHALLENGE_AGE_IN_SECONDS * 1000) {
         res.json({
-            status: failure_status,
+            status: json_statuses.failure,
             error: 'Challenge is too old (more than ' + MAX_CHALLENGE_AGE_IN_SECONDS + ' seconds)'
         });
     } else {
@@ -128,19 +126,19 @@ app.post('/auth', function(req, res) {
             if (users.length === 0) {
                 console.log('no user \'' + username + '\' found');
                 res.json({
-                    status: failure_status,
+                    status: json_statuses.failure,
                     error: 'Incorrect username or password'
                 });
             } else {
                 var hash = bcrypt.hashSync(users[0].password + challenge_part1 + challenge_part2, salt);
                 if (hash === req.body.password) {
                     res.json({
-                        status: success_status,
+                        status: json_statuses.success,
                         token: getSessionToken(username)
                     });
                 } else {
                     res.json({
-                        status: failure_status,
+                        status: json_statuses.failure,
                         error: 'Incorrect password'
                     });
                 }
@@ -154,7 +152,7 @@ app.get('/sensors/:sessionToken', function(req, res) {
         dataConnector.getAll('sensor').
         then(function(sensors) {
             res.json({
-                status: success_status,
+                status: json_statuses.success,
                 sensors: sensors
             });
         });
@@ -205,7 +203,7 @@ app.get('/sample/:sessionToken/:sampleId', function(req, res) {
             fs.stat(filePath, function(error, stat) {
                 if (error) {
                     res.json({
-                        status: failure_status,
+                        status: json_statuses.failure,
                         error: error
                     });
                 } else {
@@ -270,12 +268,12 @@ function acceptSoundSample(sensorId, token, quality, soundLevels, req, res) {
             dataConnector.save('sample', sample).then(function() {
                 broadcast('sample', sample);
                 res.json({
-                    status: success_status
+                    status: json_statuses.success
                 });
                 notificationsManagement.notify(sensorId, sample.sampleUid);
             }, function() {
                 res.json({
-                    status: failure_status,
+                    status: json_statuses.failure,
                     error: error
                 });
             });
@@ -321,13 +319,13 @@ app.post('/samplePicture/:sensorId/:token', function(req, res) {
             dataConnector.save('sample', sample).then(function() {
                 broadcast('sample', sample);
                 res.json({
-                    status: success_status,
+                    status: json_statuses.success,
                     message: 'Sample correctly uploaded.'
                 });
                 notificationsManagement.notify(sensorId, sample.sampleUid);
             }, function() {
                 res.json({
-                    status: failure_status,
+                    status: json_statuses.failure,
                     error: error
                 });
             });
@@ -336,6 +334,8 @@ app.post('/samplePicture/:sensorId/:token', function(req, res) {
     });
 
 });
+
+registration.setup(app, checkSession);
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);

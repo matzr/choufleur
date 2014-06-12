@@ -79,9 +79,19 @@ int quality = AVAudioQualityMin;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)requestRegistrationToken {
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Sensor Registration" message:@"Please enter your registration token" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
 - (IBAction)registerSensor:(id)sender {
+    [self requestRegistrationToken];
+}
+
+-(void)finishRegistration:(NSString*)registrationToken {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
-    [request setURL:[NSURL URLWithString:[appdel.baseUrl stringByAppendingString:@"sensor"]]];
+    [request setURL:[NSURL URLWithString:[[appdel.baseUrl stringByAppendingString:@"register_sensor_with_token/"] stringByAppendingString:registrationToken]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
@@ -91,17 +101,23 @@ int quality = AVAudioQualityMin;
     //return and test
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-            NSLog(returnString);
+    NSDictionary *responseDic = nil;
     
-    NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:returnData options:kNilOptions error:nil];
+    if (returnData) {
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        NSLog(returnString);
+        
+        responseDic = [NSJSONSerialization JSONObjectWithData:returnData options:kNilOptions error:nil];
+    }
+    
     if ([[responseDic objectForKey:@"status"] isEqualToString:@"SUCCESS"]) {
         NSDictionary *sensorDetails = [responseDic objectForKey:@"sensor"];
         self.sensorIdLabel.text = sensorId = [sensorDetails valueForKey:@"sensor_id"];
         self.startButton.enabled = YES;
         [self saveSensorDetails];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Registration Failed" message:[responseDic objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
-    
     
 }
 
@@ -118,7 +134,7 @@ int quality = AVAudioQualityMin;
         
         [soundRecorder stop];
         recording = NO;
-
+        
         self.startButton.enabled = YES;
         self.stopButton.enabled = NO;
         //TODO: add to the queue (and start queue watcher if necessary)
@@ -130,7 +146,7 @@ int quality = AVAudioQualityMin;
         } else {
             NSLog(@"discarded sample");
         }
-//               [soundRecorder deleteRecording];
+        //               [soundRecorder deleteRecording];
         soundRecorder = nil;
         [[AVAudioSession sharedInstance] setActive: NO error: nil];
         
@@ -170,12 +186,12 @@ int quality = AVAudioQualityMin;
                                          AVEncoderAudioQualityKey: @(quality)
                                          };
         
-//        NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                         [NSNumber numberWithFloat: 11025.0],                 AVSampleRateKey,
-//                                         [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
-//                                         [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
-//                                         [NSNumber numberWithInt: AVAudioQualityMin],         AVEncoderAudioQualityKey,
-//                                         nil];
+        //        NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+        //                                         [NSNumber numberWithFloat: 11025.0],                 AVSampleRateKey,
+        //                                         [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
+        //                                         [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
+        //                                         [NSNumber numberWithInt: AVAudioQualityMin],         AVEncoderAudioQualityKey,
+        //                                         nil];
         
         currentSampleDetails = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                kSampleRateKey: @(sampleRate),
@@ -226,7 +242,7 @@ int quality = AVAudioQualityMin;
     int quality = (int)[[currentSampleDetails valueForKey:kSampleRateKey] floatValue];
     float maxLevel = [[currentSampleDetails valueForKey:kMaxLevelKey] floatValue];
     float averageLevel = [[currentSampleDetails valueForKey:kAverageLevelKey] floatValue];
-
+    
     NSString *urlString = [appdel.baseUrl stringByAppendingString:[NSString stringWithFormat:@"sampleData/%@/%@/%d/%f_%f", sensorId, token, quality, maxLevel, averageLevel]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
     [request setURL:[NSURL URLWithString:urlString]];
@@ -266,4 +282,11 @@ int quality = AVAudioQualityMin;
     }
     return YES;
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self finishRegistration:[[alertView textFieldAtIndex:0] text]];
+    }
+}
+
 @end

@@ -15,3 +15,10 @@ ALTER TABLE `ChouFleur`.`sensor`
 ADD COLUMN `user_uid` VARCHAR(45) NOT NULL AFTER `sensor_name`,
 ADD INDEX `idx_sensor_user_uid` (`user_uid` ASC);
 
+ALTER TABLE `ChouFleur`.`user` 
+ADD COLUMN `plan` VARCHAR(45) NULL DEFAULT 'FREE' AFTER `user_uid`;
+
+UPDATE ChouFleur.`user` set plan = 'FREE';
+
+ALTER TABLE `ChouFleur`.`user` 
+CHANGE COLUMN `plan` `plan` VARCHAR(45) NOT NULL DEFAULT 'FREE' ;

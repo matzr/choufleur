@@ -20,6 +20,10 @@ angular
         templateUrl: 'views/sensors.html',
         controller: 'SensorsCtrl'
       })
+      .when('/sensor/get_registration_token', {
+        templateUrl: 'views/get-registration-token.html',
+        controller: 'SensorRegistrationTokenCtrl'
+      })
       .when('/sensor/:sensor_id/:sensor_name', {
         templateUrl: 'views/sensor-details.html',
         controller: 'SensorDetailsCtrl'

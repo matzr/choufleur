@@ -1,23 +1,32 @@
-<div>
-	<div>
-		<span>username</span>
-	</div>
-	<div>
-		<input type="text" ng-model="username" />
-	</div>
-</div>
+<div class="registration-form">
+    <h1>User Registration</h1>
+
+    <p>&nbsp;</p>
+
+    <div>Choose a username and a password</div>
 
 
-<div>
-	<div>
-		<span>password</span>
-	</div>
-	<div>
-		<input type="password" ng-model="password" />
-	</div>
-</div>
+    <div class="panel">
+        <div class="panel-body">
+            <div>
+                <div class="row">
+                    <span>username</span>
+                    <input type="text" ng-model="username" />
+                </div>
+            </div>
 
 
-<div>
-	<button ng-click="register()">go</button>
+            <div>
+                <div class="row">
+                    <span>password</span>
+                    <input type="password" ng-model="password" />
+                </div>
+            </div>
+
+
+            <div>
+                <button ng-click="register()">Register</button>
+            </div>
+        </div>
+    </div>
 </div>

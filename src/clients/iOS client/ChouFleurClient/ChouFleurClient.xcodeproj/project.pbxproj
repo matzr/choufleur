@@ -30,6 +30,7 @@
 		4E9A2362192BFBDB005A0756 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E9A2360192BFBDB005A0756 /* InfoPlist.strings */; };
 		4E9A2364192BFBDB005A0756 /* ChouFleurClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A2363192BFBDB005A0756 /* ChouFleurClientTests.m */; };
 		4E9A236E192BFD07005A0756 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9A236D192BFD07005A0756 /* AVFoundation.framework */; };
+		4EE997AC194988B50086F5E4 /* passwordfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE997AB194988B50086F5E4 /* passwordfield.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		4E9A2361192BFBDB005A0756 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E9A2363192BFBDB005A0756 /* ChouFleurClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChouFleurClientTests.m; sourceTree = "<group>"; };
 		4E9A236D192BFD07005A0756 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4EE997AB194988B50086F5E4 /* passwordfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passwordfield.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 		4E9A233F192BFBDB005A0756 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4EE997AB194988B50086F5E4 /* passwordfield.png */,
 				4E9A2340192BFBDB005A0756 /* ChouFleurClient-Info.plist */,
 				4E9A2341192BFBDB005A0756 /* InfoPlist.strings */,
 				4E9A2344192BFBDB005A0756 /* main.m */,
@@ -326,6 +329,7 @@
 				4E9A2351192BFBDB005A0756 /* Images.xcassets in Resources */,
 				4E9A2343192BFBDB005A0756 /* InfoPlist.strings in Resources */,
 				4E947C6D193611D3001AE3A7 /* Main.storyboard in Resources */,
+				4EE997AC194988B50086F5E4 /* passwordfield.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

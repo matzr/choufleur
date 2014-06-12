@@ -1,23 +1,35 @@
-<div>
-	<div>
-		<span>username</span>
-	</div>
-	<div>
-		<input type="text" ng-model="username" />
-	</div>
-</div>
+<div class="authentication-form">
+    <h1>Authentication</h1>
+
+    <p>&nbsp;</p>
+
+    <div>Enter your username and a password</div>
 
 
-<div>
-	<div>
-		<span>password</span>
-	</div>
-	<div>
-		<input type="password" ng-model="password" />
-	</div>
-</div>
+    <div class="panel">
+        <div class="panel-body">
+            <div>
+                <div class="row">
+                    <span>username</span>
+                    <input type="text" ng-model="username" />
+                </div>
+            </div>
 
 
-<div>
-	<button ng-click="logon()">go</button>
+            <div>
+                <div class="row">
+                    <span>password</span>
+                    <input type="password" ng-model="password" />
+                </div>
+            </div>
+
+
+            <div>
+                <button ng-click="logon()">Login</button>
+            </div>
+            <div class="registration-link">
+                Not a member yet? Register <a href="#/register">here</a>
+            </div>
+        </div>
+    </div>
 </div>

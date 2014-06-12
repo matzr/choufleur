@@ -1,3 +1,5 @@
 node_modules/
 out/
 workspace.xml
+dump.rdb
+file_storage/

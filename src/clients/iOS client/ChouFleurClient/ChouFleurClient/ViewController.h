@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController<AVAudioRecorderDelegate, UITextFieldDelegate>
+@interface ViewController : UIViewController<AVAudioRecorderDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 - (IBAction)start:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
