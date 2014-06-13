@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E08B094194AD259005C98E9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B093194AD259005C98E9 /* SettingsViewController.m */; };
+		4E08B097194AE1BC005C98E9 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B096194AE1BC005C98E9 /* RegistrationViewController.m */; };
 		4E2159A4194A670300884823 /* help button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A0194A670300884823 /* help button.png */; };
 		4E2159A5194A670300884823 /* main menu - ios.psd in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A1194A670300884823 /* main menu - ios.psd */; };
 		4E2159A6194A670300884823 /* settings button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A2194A670300884823 /* settings button.png */; };
@@ -73,6 +75,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E08B092194AD259005C98E9 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		4E08B093194AD259005C98E9 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		4E08B095194AE1BC005C98E9 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
+		4E08B096194AE1BC005C98E9 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		4E2159A0194A670300884823 /* help button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help button.png"; sourceTree = "<group>"; };
 		4E2159A1194A670300884823 /* main menu - ios.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "main menu - ios.psd"; sourceTree = "<group>"; };
 		4E2159A2194A670300884823 /* settings button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings button.png"; sourceTree = "<group>"; };
@@ -198,20 +204,24 @@
 		4E9A233E192BFBDB005A0756 /* ChouFleurClient */ = {
 			isa = PBXGroup;
 			children = (
-				4E90E24E1946F2AF00D5E376 /* GPUImage.xcodeproj */,
-				4E947C6C193611D3001AE3A7 /* Main.storyboard */,
 				4E9A2347192BFBDB005A0756 /* AppDelegate.h */,
 				4E9A2348192BFBDB005A0756 /* AppDelegate.m */,
-				4E9A234D192BFBDB005A0756 /* ViewController.h */,
-				4E9A234E192BFBDB005A0756 /* ViewController.m */,
-				4E9A2350192BFBDB005A0756 /* Images.xcassets */,
-				4E9A233F192BFBDB005A0756 /* Supporting Files */,
 				4E90E2401946E9BE00D5E376 /* CameraMonitorViewController.bkp.h */,
 				4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */,
 				4E90E2431946F25200D5E376 /* CameraMonitorViewController.h */,
 				4E90E2441946F25200D5E376 /* CameraMonitorViewController.m */,
+				4E90E24E1946F2AF00D5E376 /* GPUImage.xcodeproj */,
+				4E9A2350192BFBDB005A0756 /* Images.xcassets */,
+				4E947C6C193611D3001AE3A7 /* Main.storyboard */,
 				4E246C5E194A52AA0072898C /* MainMenuViewController.h */,
 				4E246C5F194A52AA0072898C /* MainMenuViewController.m */,
+				4E08B092194AD259005C98E9 /* SettingsViewController.h */,
+				4E08B093194AD259005C98E9 /* SettingsViewController.m */,
+				4E9A233F192BFBDB005A0756 /* Supporting Files */,
+				4E9A234D192BFBDB005A0756 /* ViewController.h */,
+				4E9A234E192BFBDB005A0756 /* ViewController.m */,
+				4E08B095194AE1BC005C98E9 /* RegistrationViewController.h */,
+				4E08B096194AE1BC005C98E9 /* RegistrationViewController.m */,
 			);
 			path = ChouFleurClient;
 			sourceTree = "<group>";
@@ -421,11 +431,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E90E2421946E9BE00D5E376 /* CameraMonitorViewController.bkp.m in Sources */,
+				4E08B097194AE1BC005C98E9 /* RegistrationViewController.m in Sources */,
 				4E9A234F192BFBDB005A0756 /* ViewController.m in Sources */,
 				4E90E2451946F25200D5E376 /* CameraMonitorViewController.m in Sources */,
 				4E9A2349192BFBDB005A0756 /* AppDelegate.m in Sources */,
 				4E246C60194A52AA0072898C /* MainMenuViewController.m in Sources */,
 				4E9A2345192BFBDB005A0756 /* main.m in Sources */,
+				4E08B094194AD259005C98E9 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
