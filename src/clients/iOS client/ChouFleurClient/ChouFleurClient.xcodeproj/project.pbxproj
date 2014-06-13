@@ -37,6 +37,8 @@
 		4E9A2364192BFBDB005A0756 /* ChouFleurClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A2363192BFBDB005A0756 /* ChouFleurClientTests.m */; };
 		4E9A236E192BFD07005A0756 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9A236D192BFD07005A0756 /* AVFoundation.framework */; };
 		4EE997AC194988B50086F5E4 /* passwordfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE997AB194988B50086F5E4 /* passwordfield.png */; };
+		4EF60CE3194A9FD40023DAD1 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF60CE1194A9FD40023DAD1 /* camera.png */; };
+		4EF60CE4194A9FD40023DAD1 /* headphones.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF60CE2194A9FD40023DAD1 /* headphones.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		4E9A2363192BFBDB005A0756 /* ChouFleurClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChouFleurClientTests.m; sourceTree = "<group>"; };
 		4E9A236D192BFD07005A0756 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4EE997AB194988B50086F5E4 /* passwordfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passwordfield.png; sourceTree = "<group>"; };
+		4EF60CE1194A9FD40023DAD1 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		4EF60CE2194A9FD40023DAD1 /* headphones.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headphones.png; sourceTree = "<group>"; };
 		B69AC77422784DF0AB7BF3B4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CE8F5E9BEA01461281D1A74D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -215,6 +219,8 @@
 		4E9A233F192BFBDB005A0756 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4EF60CE1194A9FD40023DAD1 /* camera.png */,
+				4EF60CE2194A9FD40023DAD1 /* headphones.png */,
 				4E2159A8194A67E200884823 /* register sensor button.png */,
 				4E2159A0194A670300884823 /* help button.png */,
 				4E2159A1194A670300884823 /* main menu - ios.psd */,
@@ -356,6 +362,8 @@
 				4E2159A6194A670300884823 /* settings button.png in Resources */,
 				4E2159A4194A670300884823 /* help button.png in Resources */,
 				4E9A2351192BFBDB005A0756 /* Images.xcassets in Resources */,
+				4EF60CE4194A9FD40023DAD1 /* headphones.png in Resources */,
+				4EF60CE3194A9FD40023DAD1 /* camera.png in Resources */,
 				4E2159A9194A67E200884823 /* register sensor button.png in Resources */,
 				4E9A2343192BFBDB005A0756 /* InfoPlist.strings in Resources */,
 				4E947C6D193611D3001AE3A7 /* Main.storyboard in Resources */,
