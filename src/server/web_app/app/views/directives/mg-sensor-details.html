@@ -50,7 +50,7 @@
     <div class="currently-playing" ng-show="currentlyPlaying">Currently playing: {{currentlyPlaying.sample_start_date | date:'dd/MM HH:mm:ss'}}</div>
 
 
-    <div class="pictures">
+    <div class="pictures" ng-show="pictureSamples.length > 0">
         <div style="width: {{pictureSamples.length * 42}}px;">
             <div ng-repeat="pictureSample in pictureSamples" class="thumbnail" style="background-image: url(/sample/{{sessionToken}}/{{pictureSample.sampleUid}});">
             </div>

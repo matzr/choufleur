@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2159A4194A670300884823 /* help button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A0194A670300884823 /* help button.png */; };
+		4E2159A5194A670300884823 /* main menu - ios.psd in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A1194A670300884823 /* main menu - ios.psd */; };
+		4E2159A6194A670300884823 /* settings button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A2194A670300884823 /* settings button.png */; };
+		4E2159A7194A670300884823 /* start monitoring button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A3194A670300884823 /* start monitoring button.png */; };
+		4E2159A9194A67E200884823 /* register sensor button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A8194A67E200884823 /* register sensor button.png */; };
+		4E246C60194A52AA0072898C /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E246C5F194A52AA0072898C /* MainMenuViewController.m */; };
 		4E90E2421946E9BE00D5E376 /* CameraMonitorViewController.bkp.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */; };
 		4E90E2451946F25200D5E376 /* CameraMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E90E2441946F25200D5E376 /* CameraMonitorViewController.m */; };
 		4E90E2471946F26D00D5E376 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E2461946F26D00D5E376 /* CoreMedia.framework */; };
@@ -65,6 +71,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E2159A0194A670300884823 /* help button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help button.png"; sourceTree = "<group>"; };
+		4E2159A1194A670300884823 /* main menu - ios.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "main menu - ios.psd"; sourceTree = "<group>"; };
+		4E2159A2194A670300884823 /* settings button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings button.png"; sourceTree = "<group>"; };
+		4E2159A3194A670300884823 /* start monitoring button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start monitoring button.png"; sourceTree = "<group>"; };
+		4E2159A8194A67E200884823 /* register sensor button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register sensor button.png"; sourceTree = "<group>"; };
+		4E246C5E194A52AA0072898C /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		4E246C5F194A52AA0072898C /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		4E90E2401946E9BE00D5E376 /* CameraMonitorViewController.bkp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraMonitorViewController.bkp.h; sourceTree = "<group>"; };
 		4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraMonitorViewController.bkp.m; sourceTree = "<group>"; };
 		4E90E2431946F25200D5E376 /* CameraMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraMonitorViewController.h; sourceTree = "<group>"; };
@@ -96,6 +109,8 @@
 		4E9A2363192BFBDB005A0756 /* ChouFleurClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChouFleurClientTests.m; sourceTree = "<group>"; };
 		4E9A236D192BFD07005A0756 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4EE997AB194988B50086F5E4 /* passwordfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passwordfield.png; sourceTree = "<group>"; };
+		B69AC77422784DF0AB7BF3B4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CE8F5E9BEA01461281D1A74D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +160,7 @@
 				4E9A235D192BFBDB005A0756 /* ChouFleurClientTests */,
 				4E9A2337192BFBDB005A0756 /* Frameworks */,
 				4E9A2336192BFBDB005A0756 /* Products */,
+				B69AC77422784DF0AB7BF3B4 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,6 +186,7 @@
 				4E9A233A192BFBDB005A0756 /* CoreGraphics.framework */,
 				4E9A233C192BFBDB005A0756 /* UIKit.framework */,
 				4E9A2357192BFBDB005A0756 /* XCTest.framework */,
+				CE8F5E9BEA01461281D1A74D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -189,6 +206,8 @@
 				4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */,
 				4E90E2431946F25200D5E376 /* CameraMonitorViewController.h */,
 				4E90E2441946F25200D5E376 /* CameraMonitorViewController.m */,
+				4E246C5E194A52AA0072898C /* MainMenuViewController.h */,
+				4E246C5F194A52AA0072898C /* MainMenuViewController.m */,
 			);
 			path = ChouFleurClient;
 			sourceTree = "<group>";
@@ -196,6 +215,11 @@
 		4E9A233F192BFBDB005A0756 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E2159A8194A67E200884823 /* register sensor button.png */,
+				4E2159A0194A670300884823 /* help button.png */,
+				4E2159A1194A670300884823 /* main menu - ios.psd */,
+				4E2159A2194A670300884823 /* settings button.png */,
+				4E2159A3194A670300884823 /* start monitoring button.png */,
 				4EE997AB194988B50086F5E4 /* passwordfield.png */,
 				4E9A2340192BFBDB005A0756 /* ChouFleurClient-Info.plist */,
 				4E9A2341192BFBDB005A0756 /* InfoPlist.strings */,
@@ -230,9 +254,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E9A2367192BFBDB005A0756 /* Build configuration list for PBXNativeTarget "ChouFleurClient" */;
 			buildPhases = (
+				EBE451B9A30A47528CD5E806 /* Check Pods Manifest.lock */,
 				4E9A2331192BFBDB005A0756 /* Sources */,
 				4E9A2332192BFBDB005A0756 /* Frameworks */,
 				4E9A2333192BFBDB005A0756 /* Resources */,
+				C946663C26B043E595CF1EB7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -326,9 +352,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2159A5194A670300884823 /* main menu - ios.psd in Resources */,
+				4E2159A6194A670300884823 /* settings button.png in Resources */,
+				4E2159A4194A670300884823 /* help button.png in Resources */,
 				4E9A2351192BFBDB005A0756 /* Images.xcassets in Resources */,
+				4E2159A9194A67E200884823 /* register sensor button.png in Resources */,
 				4E9A2343192BFBDB005A0756 /* InfoPlist.strings in Resources */,
 				4E947C6D193611D3001AE3A7 /* Main.storyboard in Resources */,
+				4E2159A7194A670300884823 /* start monitoring button.png in Resources */,
 				4EE997AC194988B50086F5E4 /* passwordfield.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +374,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C946663C26B043E595CF1EB7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBE451B9A30A47528CD5E806 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4E9A2331192BFBDB005A0756 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -352,6 +416,7 @@
 				4E9A234F192BFBDB005A0756 /* ViewController.m in Sources */,
 				4E90E2451946F25200D5E376 /* CameraMonitorViewController.m in Sources */,
 				4E9A2349192BFBDB005A0756 /* AppDelegate.m in Sources */,
+				4E246C60194A52AA0072898C /* MainMenuViewController.m in Sources */,
 				4E9A2345192BFBDB005A0756 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,6 +542,7 @@
 		};
 		4E9A2368192BFBDB005A0756 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B69AC77422784DF0AB7BF3B4 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -499,6 +565,7 @@
 		};
 		4E9A2369192BFBDB005A0756 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B69AC77422784DF0AB7BF3B4 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
