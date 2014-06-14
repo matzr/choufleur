@@ -80,6 +80,7 @@ int quality = AVAudioQualityMin;
     if (![_activeCamera isEqualToString:@"DISABLED"]) {
         [self.videoCamera stopCameraCapture];
     }
+    [self stopRecording:self];
 }
 
 - (void)didReceiveMemoryWarning

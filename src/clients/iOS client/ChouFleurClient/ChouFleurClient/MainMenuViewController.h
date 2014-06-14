@@ -11,7 +11,10 @@
 @interface MainMenuViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *onboardingView;
+
 - (IBAction)dismissOnboarding:(id)sender;
 - (IBAction)showHelp:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *registrationStatusLabel;
 
 @end
