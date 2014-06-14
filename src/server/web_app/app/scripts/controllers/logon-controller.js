@@ -24,7 +24,7 @@ angular.module('choufleur')
                             }).success(function(response) {
                                 if (response.status === 'SUCCESS') {
                                     session.token = response.token;
-                                    $location.path('/sensors')
+                                    $location.path('/sensors');
                                 } else {
                                     alert(response.error);
                                 }

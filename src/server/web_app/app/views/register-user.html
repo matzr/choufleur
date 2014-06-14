@@ -3,30 +3,85 @@
 
     <p>&nbsp;</p>
 
-    <div>Choose a username and a password</div>
+    <div ng-show="!registrationSucceeded">
+        <h4>Choose a username and a password</h4>
 
 
-    <div class="panel">
-        <div class="panel-body">
-            <div>
-                <div class="row">
-                    <span>username</span>
-                    <input type="text" ng-model="username" />
+        <div class="panel">
+            <div class="panel-body">
+                <div>
+                    <div class="row">
+                        <span>Username</span>
+                        <input type="text" ng-model="username" />
+                    </div>
                 </div>
-            </div>
 
 
-            <div>
-                <div class="row">
-                    <span>password</span>
-                    <input type="password" ng-model="password" />
+                <div>
+                    <div class="row">
+                        <span>Password</span>
+                        <input type="password" ng-model="password" />
+                    </div>
                 </div>
-            </div>
 
+                <div>
+                    <div class="row">
+                        <span>Email</span>
+                        <input type="text" ng-model="emailAddress" />
+                    </div>
+                </div>
 
-            <div>
-                <button ng-click="register()">Register</button>
+                <div>
+                    <button ng-click="register()">Register</button>
+                </div>
             </div>
         </div>
     </div>
+
+    <div ng-show="registrationSucceeded">
+        <h3>Registration completed</h3>
+        <br/><br/>
+
+        <h4>Install the sensor app...</h4>
+        <div class="panel">
+            <div class="panel-body">
+                <div>
+                    <div class="large-row">
+                        <span>If you have not installed the sensor app yet, you can download it.</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">&nbsp;</div>
+                </div>
+                <div>
+                    <div class="row">
+                        <img src="/images/Download_on_the_App_Store_Badge_US-UK_135x40.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/><br/>
+        <h4>... get a sensor token</h4>
+        <div class="panel">
+            <div class="panel-body">
+                <div>
+                    <div class="row">
+                        <button ng-disabled="sensorToken" ng-click="requestToken()" class="request-token-button">Request token</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="row" ng-show="sensorToken">
+                        &nbsp;
+                    </div>
+                </div>
+                <div>
+                    <div class="row" ng-show="sensorToken">
+                        <span>Token: </span><span><b>{{sensorToken}}</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -60,10 +60,28 @@ NSString* numberOfCapturesKey = @"numberOfCaptures";
 */
 
 - (IBAction)close:(id)sender {
+    _userDefaults = nil;
     [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)save:(id)sender {
+    [_userDefaults setValue:@((int)self.audioSampleSizeSlider.value) forKey:audioSampleSizeKey];
+    [_userDefaults setValue:@((int)self.numberOfCapturesSlider.value) forKey:numberOfCapturesKey];
+    [_userDefaults setValue:(self.audioSensitivitySegmentedControl.selectedSegmentIndex == 0)?@"HIGH":@"LOW" forKey:audioSensitivyKey];
+    [_userDefaults setValue:(self.videoSensitivitySegmentedControl.selectedSegmentIndex == 0)?@"HIGH":@"LOW" forKey:cameraSensitivyKey];
+
+    switch (self.activeCameraSegmentedControl.selectedSegmentIndex) {
+        case 1:
+            [_userDefaults setValue:@"FRONT" forKey:activeCameraKey];
+            break;
+        case 2:
+            [_userDefaults setValue:@"BACK" forKey:activeCameraKey];
+            break;
+        default:
+            [_userDefaults setValue:@"DISABLED" forKey:activeCameraKey];
+            break;
+    }
+
     [_userDefaults synchronize];
     [self close:sender];
 }
@@ -77,7 +95,6 @@ NSString* numberOfCapturesKey = @"numberOfCaptures";
     UISlider* slider = sender;
     int newValue = (int)slider.value;
     self.audioSampleSizeLabel.text = [NSString stringWithFormat:@"%d s", newValue];
-    [_userDefaults setValue:@(newValue) forKey:audioSampleSizeKey];
     [self enableSave];
 }
 
@@ -85,34 +102,17 @@ NSString* numberOfCapturesKey = @"numberOfCaptures";
     UISlider* slider = sender;
     int newValue = (int)slider.value;
     self.numberOfPhotoCapturesLabel.text = [NSString stringWithFormat:@"%d", newValue];
-    [_userDefaults setValue:@(newValue) forKey:numberOfCapturesKey];
     [self enableSave];
 }
 
 - (IBAction)audioSensitivityChanged:(id)sender {
-    UISegmentedControl *segmentedControl = sender;
-    [_userDefaults setValue:(segmentedControl.selectedSegmentIndex == 0)?@"HIGH":@"LOW" forKey:audioSensitivyKey];
     [self enableSave];}
 
 - (IBAction)activeCameraSettingChanged:(id)sender {
-    UISegmentedControl *segmentedControl = sender;
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 1:
-            [_userDefaults setValue:@"FRONT" forKey:activeCameraKey];
-            break;
-        case 2:
-            [_userDefaults setValue:@"BACK" forKey:activeCameraKey];
-            break;
-        default:
-            [_userDefaults setValue:@"DISABLED" forKey:activeCameraKey];
-            break;
-    }
     [self enableSave];
 }
 
 - (IBAction)cameraSensitivityChanged:(id)sender {
-    UISegmentedControl *segmentedControl = sender;
-    [_userDefaults setValue:(segmentedControl.selectedSegmentIndex == 0)?@"HIGH":@"LOW" forKey:cameraSensitivyKey];
     [self enableSave];
 }
 

@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegistrationViewController : UIViewController
+@interface RegistrationViewController : UIViewController<UITextFieldDelegate, UIAlertViewDelegate>
 - (IBAction)close:(id)sender;
+- (IBAction)registerSensor:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *tokenTextField;
+@property (weak, nonatomic) IBOutlet UITextField *sensorNameTextField;
 
 @end

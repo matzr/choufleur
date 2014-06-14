@@ -56,15 +56,17 @@
                                     return sample.sample_type === 'audio';
                                 }).sort(sortByDate);
 
-                                $scope.minSoundLevel = parseFloat(_.min(samples, function(sample) {
-                                    return parseFloat(sample.sample_average_sound_level);
-                                }).sample_average_sound_level);
-                                $scope.maxSoundLevel = parseFloat(_.max(samples, function(sample) {
-                                    return parseFloat(sample.sample_average_sound_level);
-                                }).sample_average_sound_level);
-                                $scope.soundLevelAmplitude = $scope.maxSoundLevel - $scope.minSoundLevel;
-                                if ($scope.soundLevelAmplitude === 0) {
-                                    $scope.soundLevelAmplitude = 1;
+                                if (samples.length > 0) {
+                                    $scope.minSoundLevel = parseFloat(_.min(samples, function(sample) {
+                                        return parseFloat(sample.sample_average_sound_level);
+                                    }).sample_average_sound_level);
+                                    $scope.maxSoundLevel = parseFloat(_.max(samples, function(sample) {
+                                        return parseFloat(sample.sample_average_sound_level);
+                                    }).sample_average_sound_level);
+                                    $scope.soundLevelAmplitude = $scope.maxSoundLevel - $scope.minSoundLevel;
+                                    if ($scope.soundLevelAmplitude === 0) {
+                                        $scope.soundLevelAmplitude = 1;
+                                    }
                                 }
                             });
                         }

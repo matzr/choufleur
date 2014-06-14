@@ -7,8 +7,8 @@ var q = require('q');
 
 var json_statuses = require('./json-values.js').statuses;
 var dataConnector = require('./data-connector.js');
-var MAX_VALIDITY_REGISTRATION_TOKEN = 300; // 5 minutes
-
+var MAX_VALIDITY_REGISTRATION_TOKEN = 600; // 10 minutes
+var onTokenUsed = null;
 var checkSession;
 
 function requestSensorToken(req, res) {
@@ -74,6 +74,9 @@ function registerSensor(req, response) {
         }]).then(function (users) {
             sensor.user_uid = users[0].user_uid;
             addSensor(sensor, response);
+            if (onTokenUsed) {
+                onTokenUsed(req.params.registration_token);
+            }
         });
     }, function() {
         //token nok
@@ -96,5 +99,11 @@ function setup(app, checkSessionMethod) {
     app.post('/register_sensor_with_token/:registration_token', registerSensor);
 }
 
+function setOnTokenUsed(callback) {
+    onTokenUsed = callback;
+}
 
 module.exports.setup = setup;
+module.exports.setOnTokenUsed = setOnTokenUsed;
+
+

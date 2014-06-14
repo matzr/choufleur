@@ -46,7 +46,7 @@
 
 -(NSString *)baseUrl {
 //    return @"http://choufleur.mathieugardere.com:21177/";
-    return @"http://192.168.1.102:21177/";
+    return @"http://192.168.1.15:21177/";
 //    return @"http://choufleur.mathieugardere.com:21177/";
 }
 

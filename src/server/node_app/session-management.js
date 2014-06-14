@@ -6,8 +6,8 @@ var redis = require('redis'),
 var STANDARD_EXPIRY_IN_SECONDS = 120;
 var q = require('q');
 
-function setSessionToken(token, username) {
-	redisClient.setex(token, STANDARD_EXPIRY_IN_SECONDS, username);
+function setSessionToken(token, user) {
+	redisClient.setex(token, STANDARD_EXPIRY_IN_SECONDS, JSON.stringify(user));
 }
 
 function pingSessionToken(token)  {
@@ -22,7 +22,7 @@ function getSessionToken(token) {
 	    } else {
 	        if (reply) {
 				pingSessionToken(token);
-	        	deferred.resolve(reply);
+	        	deferred.resolve(JSON.parse(reply));
 	        } else {
 	        	deferred.reject();
 	        }

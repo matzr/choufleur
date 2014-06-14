@@ -219,11 +219,11 @@ h1 {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10000;
+    z-index: -1;
     height: 200px;
     width: 500px;
 }
-body, h1, h2, h3 {
+body, h1, h2, h3, h4, h5 {
     font-family:'Courier New';
 }
 body {
@@ -283,6 +283,15 @@ button:hover {
   left: 50%;
   margin-left: -125px;
 }
+
+.registration-form .panel .large-row {
+  position: absolute;
+  height: 30px;
+  width: 400px;
+  left: 50%;
+  margin-left: -200px;
+}
+
 .authentication-form .panel-body > div, .registration-form .panel-body > div {
   position: relative;
   height: 40px;
@@ -298,6 +307,10 @@ button:hover {
   left: 50%;
   width: 80px;
   margin-left: -40px;
+}
+
+.registration-form .panel button.request-token-button {
+  width: 120px;
 }
 
 .authentication-form .registration-link {

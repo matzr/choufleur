@@ -51,9 +51,9 @@ function checkSession(token, res, callback) {
         });
 }
 
-function getSessionToken(username) {
+function getSessionToken(user) {
     var token = guid();
-    sessionManagement.setSessionToken(token, username)
+    sessionManagement.setSessionToken(token, user)
     return token;
 }
 
@@ -74,6 +74,7 @@ app.post('/auth/register', function(req, res) {
     then(function(users) {
         if (users.length === 0) {
             dataConnector.save('user', {
+                user_uid: guid(),
                 username: req.body.username,
                 password: req.body.sha1password
             }).then(function() {
@@ -134,7 +135,7 @@ app.post('/auth', function(req, res) {
                 if (hash === req.body.password) {
                     res.json({
                         status: json_statuses.success,
-                        token: getSessionToken(username)
+                        token: getSessionToken(users[0])
                     });
                 } else {
                     res.json({
@@ -148,8 +149,11 @@ app.post('/auth', function(req, res) {
 });
 
 app.get('/sensors/:sessionToken', function(req, res) {
-    checkSession(req.params.sessionToken, res, function() {
-        dataConnector.getAll('sensor').
+    checkSession(req.params.sessionToken, res, function(user) {
+        dataConnector.getAll('sensor', [{
+            field: 'user_uid',
+            value: user.user_uid
+        }]).
         then(function(sensors) {
             res.json({
                 status: json_statuses.success,
@@ -352,12 +356,22 @@ function addListener(listener) {
     }
 }
 
+function sensorTokenUsed(token) {
+    for (var i = 0; i < samplesListeners.length; i += 1) {
+        samplesListeners[i].emit('sensorTokenUsed', {
+            sensorToken: token
+        });
+    }
+}
+
 function removeListener(listener) {
     var index = samplesListeners.indexOf(listener);
     if (index !== -1) {
         samplesListeners.splice(index, 1);
     }
 }
+
+registration.setOnTokenUsed(sensorTokenUsed);
 
 //TODO: session token check
 io.sockets.on('connection', function(socket) {

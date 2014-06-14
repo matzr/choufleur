@@ -8,7 +8,9 @@
 
 #import "MainMenuViewController.h"
 
-@interface MainMenuViewController ()
+@interface MainMenuViewController () {
+    NSUserDefaults *_userDefaults;
+}
 
 @end
 
@@ -26,7 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _userDefaults = [NSUserDefaults standardUserDefaults];
+    self.onboardingView.hidden = [[_userDefaults objectForKey:@"onboardindDismissed"] boolValue];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,4 +49,11 @@
 }
 */
 
+- (IBAction)dismissOnboarding:(id)sender {
+    [_userDefaults setValue:@(YES) forKey:@"onboardindDismissed"];
+    self.onboardingView.hidden = YES;
+}
+- (IBAction)showHelp:(id)sender {
+    self.onboardingView.hidden = NO;
+}
 @end

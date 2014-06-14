@@ -9,14 +9,15 @@
 /* Begin PBXBuildFile section */
 		4E08B094194AD259005C98E9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B093194AD259005C98E9 /* SettingsViewController.m */; };
 		4E08B097194AE1BC005C98E9 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B096194AE1BC005C98E9 /* RegistrationViewController.m */; };
+		4E08B09A194B1E64005C98E9 /* pause button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E08B098194B1E64005C98E9 /* pause button.png */; };
+		4E08B09B194B1E64005C98E9 /* record button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E08B099194B1E64005C98E9 /* record button.png */; };
+		4E08B09E194B1FD3005C98E9 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B09D194B1FD3005C98E9 /* MonitorViewController.m */; };
 		4E2159A4194A670300884823 /* help button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A0194A670300884823 /* help button.png */; };
 		4E2159A5194A670300884823 /* main menu - ios.psd in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A1194A670300884823 /* main menu - ios.psd */; };
 		4E2159A6194A670300884823 /* settings button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A2194A670300884823 /* settings button.png */; };
 		4E2159A7194A670300884823 /* start monitoring button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A3194A670300884823 /* start monitoring button.png */; };
 		4E2159A9194A67E200884823 /* register sensor button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2159A8194A67E200884823 /* register sensor button.png */; };
 		4E246C60194A52AA0072898C /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E246C5F194A52AA0072898C /* MainMenuViewController.m */; };
-		4E90E2421946E9BE00D5E376 /* CameraMonitorViewController.bkp.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */; };
-		4E90E2451946F25200D5E376 /* CameraMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E90E2441946F25200D5E376 /* CameraMonitorViewController.m */; };
 		4E90E2471946F26D00D5E376 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E2461946F26D00D5E376 /* CoreMedia.framework */; };
 		4E90E2491946F27300D5E376 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E2481946F27300D5E376 /* CoreVideo.framework */; };
 		4E90E24B1946F27700D5E376 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E24A1946F27700D5E376 /* OpenGLES.framework */; };
@@ -30,7 +31,6 @@
 		4E9A2343192BFBDB005A0756 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E9A2341192BFBDB005A0756 /* InfoPlist.strings */; };
 		4E9A2345192BFBDB005A0756 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A2344192BFBDB005A0756 /* main.m */; };
 		4E9A2349192BFBDB005A0756 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A2348192BFBDB005A0756 /* AppDelegate.m */; };
-		4E9A234F192BFBDB005A0756 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A234E192BFBDB005A0756 /* ViewController.m */; };
 		4E9A2351192BFBDB005A0756 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E9A2350192BFBDB005A0756 /* Images.xcassets */; };
 		4E9A2358192BFBDB005A0756 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9A2357192BFBDB005A0756 /* XCTest.framework */; };
 		4E9A2359192BFBDB005A0756 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9A2338192BFBDB005A0756 /* Foundation.framework */; };
@@ -79,6 +79,10 @@
 		4E08B093194AD259005C98E9 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4E08B095194AE1BC005C98E9 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		4E08B096194AE1BC005C98E9 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		4E08B098194B1E64005C98E9 /* pause button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause button.png"; sourceTree = "<group>"; };
+		4E08B099194B1E64005C98E9 /* record button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record button.png"; sourceTree = "<group>"; };
+		4E08B09C194B1FD3005C98E9 /* MonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
+		4E08B09D194B1FD3005C98E9 /* MonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
 		4E2159A0194A670300884823 /* help button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help button.png"; sourceTree = "<group>"; };
 		4E2159A1194A670300884823 /* main menu - ios.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "main menu - ios.psd"; sourceTree = "<group>"; };
 		4E2159A2194A670300884823 /* settings button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings button.png"; sourceTree = "<group>"; };
@@ -86,10 +90,6 @@
 		4E2159A8194A67E200884823 /* register sensor button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register sensor button.png"; sourceTree = "<group>"; };
 		4E246C5E194A52AA0072898C /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		4E246C5F194A52AA0072898C /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
-		4E90E2401946E9BE00D5E376 /* CameraMonitorViewController.bkp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraMonitorViewController.bkp.h; sourceTree = "<group>"; };
-		4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraMonitorViewController.bkp.m; sourceTree = "<group>"; };
-		4E90E2431946F25200D5E376 /* CameraMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraMonitorViewController.h; sourceTree = "<group>"; };
-		4E90E2441946F25200D5E376 /* CameraMonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraMonitorViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		4E90E2461946F26D00D5E376 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		4E90E2481946F27300D5E376 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		4E90E24A1946F27700D5E376 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -107,8 +107,6 @@
 		4E9A2346192BFBDB005A0756 /* ChouFleurClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChouFleurClient-Prefix.pch"; sourceTree = "<group>"; };
 		4E9A2347192BFBDB005A0756 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E9A2348192BFBDB005A0756 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4E9A234D192BFBDB005A0756 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4E9A234E192BFBDB005A0756 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4E9A2350192BFBDB005A0756 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4E9A2356192BFBDB005A0756 /* ChouFleurClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChouFleurClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9A2357192BFBDB005A0756 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -206,10 +204,6 @@
 			children = (
 				4E9A2347192BFBDB005A0756 /* AppDelegate.h */,
 				4E9A2348192BFBDB005A0756 /* AppDelegate.m */,
-				4E90E2401946E9BE00D5E376 /* CameraMonitorViewController.bkp.h */,
-				4E90E2411946E9BE00D5E376 /* CameraMonitorViewController.bkp.m */,
-				4E90E2431946F25200D5E376 /* CameraMonitorViewController.h */,
-				4E90E2441946F25200D5E376 /* CameraMonitorViewController.m */,
 				4E90E24E1946F2AF00D5E376 /* GPUImage.xcodeproj */,
 				4E9A2350192BFBDB005A0756 /* Images.xcassets */,
 				4E947C6C193611D3001AE3A7 /* Main.storyboard */,
@@ -218,10 +212,10 @@
 				4E08B092194AD259005C98E9 /* SettingsViewController.h */,
 				4E08B093194AD259005C98E9 /* SettingsViewController.m */,
 				4E9A233F192BFBDB005A0756 /* Supporting Files */,
-				4E9A234D192BFBDB005A0756 /* ViewController.h */,
-				4E9A234E192BFBDB005A0756 /* ViewController.m */,
 				4E08B095194AE1BC005C98E9 /* RegistrationViewController.h */,
 				4E08B096194AE1BC005C98E9 /* RegistrationViewController.m */,
+				4E08B09C194B1FD3005C98E9 /* MonitorViewController.h */,
+				4E08B09D194B1FD3005C98E9 /* MonitorViewController.m */,
 			);
 			path = ChouFleurClient;
 			sourceTree = "<group>";
@@ -229,6 +223,8 @@
 		4E9A233F192BFBDB005A0756 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E08B098194B1E64005C98E9 /* pause button.png */,
+				4E08B099194B1E64005C98E9 /* record button.png */,
 				4EF60CE1194A9FD40023DAD1 /* camera.png */,
 				4EF60CE2194A9FD40023DAD1 /* headphones.png */,
 				4E2159A8194A67E200884823 /* register sensor button.png */,
@@ -373,10 +369,12 @@
 				4E2159A4194A670300884823 /* help button.png in Resources */,
 				4E9A2351192BFBDB005A0756 /* Images.xcassets in Resources */,
 				4EF60CE4194A9FD40023DAD1 /* headphones.png in Resources */,
+				4E08B09B194B1E64005C98E9 /* record button.png in Resources */,
 				4EF60CE3194A9FD40023DAD1 /* camera.png in Resources */,
 				4E2159A9194A67E200884823 /* register sensor button.png in Resources */,
 				4E9A2343192BFBDB005A0756 /* InfoPlist.strings in Resources */,
 				4E947C6D193611D3001AE3A7 /* Main.storyboard in Resources */,
+				4E08B09A194B1E64005C98E9 /* pause button.png in Resources */,
 				4E2159A7194A670300884823 /* start monitoring button.png in Resources */,
 				4EE997AC194988B50086F5E4 /* passwordfield.png in Resources */,
 			);
@@ -430,11 +428,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E90E2421946E9BE00D5E376 /* CameraMonitorViewController.bkp.m in Sources */,
 				4E08B097194AE1BC005C98E9 /* RegistrationViewController.m in Sources */,
-				4E9A234F192BFBDB005A0756 /* ViewController.m in Sources */,
-				4E90E2451946F25200D5E376 /* CameraMonitorViewController.m in Sources */,
 				4E9A2349192BFBDB005A0756 /* AppDelegate.m in Sources */,
+				4E08B09E194B1FD3005C98E9 /* MonitorViewController.m in Sources */,
 				4E246C60194A52AA0072898C /* MainMenuViewController.m in Sources */,
 				4E9A2345192BFBDB005A0756 /* main.m in Sources */,
 				4E08B094194AD259005C98E9 /* SettingsViewController.m in Sources */,
