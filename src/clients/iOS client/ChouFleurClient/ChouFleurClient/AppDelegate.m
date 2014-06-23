@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "SocketIOPacket.h"
+#import "WebServerManager.h"
+#include <ifaddrs.h>
+#include <arpa/inet.h>
 
 
 @implementation AppDelegate
@@ -21,6 +25,9 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    //CLOSE THE WEBSOCKET
+    [self closeSocket];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -37,6 +44,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self openSocket];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -45,10 +53,88 @@
 }
 
 -(NSString *)baseUrl {
-//    return @"http://choufleur.mathieugardere.com:21177/";
-    return @"http://192.168.1.15:21177/";
+//    return @"http://www.sensycam.com/";
+    return @"http://localhost:21177/";
 //    return @"http://choufleur.mathieugardere.com:21177/";
 }
 
+
+#pragma mark Socket.IO stuff
+
+-(void)openSocket {
+    //OPEN THE WEBSOCKET
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *sensorId = [userDefaults valueForKey:@"sensorId"];
+    if (sensorId != nil) {
+        socketIO = [[SocketIO alloc] initWithDelegate:self];
+        [socketIO connectToHost:@"localhost" onPort:21177];
+        [socketIO sendEvent:@"sensor_online" withData:sensorId];
+    }
+}
+
+-(void)closeSocket {
+    if (socketIO) {
+        [socketIO disconnect];
+    }
+}
+
+
+- (void) socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet {
+}
+
+- (void) socketIO:(SocketIO *)socket didReceiveJSON:(SocketIOPacket *)packet {
+    
+}
+
+- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet {
+    if ([packet.name isEqualToString:@"local_ip"]) {
+        //TODO: detect and return local ip
+        [socketIO sendEvent:@"local_ip" withData:[self getIPAddress]];
+    } else if ([packet.name isEqualToString:@"auth_token"]) {
+        NSString *uuid = [[NSUUID UUID] description];
+        self.authToken = uuid;
+        [socketIO sendEvent:@"auth_token" withData:self.authToken];
+    }
+}
+
+- (void) socketIO:(SocketIO *)socket didSendMessage:(SocketIOPacket *)packet {
+    
+}
+
+- (void) socketIO:(SocketIO *)socket onError:(NSError *)error {
+    
+}
+
+
+- (NSString *)getIPAddress
+{
+    NSString *address = @"error";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = 0;
+    
+    // retrieve the current interfaces - returns 0 on success
+    success = getifaddrs(&interfaces);
+    if (success == 0) {
+        // Loop through linked list of interfaces
+        temp_addr = interfaces;
+        while (temp_addr != NULL) {
+            if( temp_addr->ifa_addr->sa_family == AF_INET) {
+                // Check if interface is en0 which is the wifi connection on the iPhone
+                if ([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    // Get NSString from C String
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                }
+            }
+            
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    
+    // Free memory
+    freeifaddrs(interfaces);
+    
+    return address;
+}
 
 @end

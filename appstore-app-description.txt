@@ -1,0 +1,120 @@
+iSpy
+____
+
+Home Security Keeping an eye on your home whilst away is simple. Just hook up some webcams (even IP cameras) and leave iSpy running. You can check in at any time through this website to monitor and control the cameras in your house and you can relax in the knowledge that should anyone break in you'll instantly be alerted with framegrabs of the intruders sent to your mobile and recorded video uploaded to youtube (with private access only).
+
+Office Surveillance An unattended office is vulnerable to theft. Just as iSpy can keep an eye on your home, it can do the same for your workplace. Offices also have the added benefit of there already being lots of iSpy capable computers sitting around doing nothing!
+
+Work Monitoring Suspect that your employees are skylarking on the internet when they should be working? Install iSpyServer on their computers and setup a video feed of their desktop - you can password protect it and leave it running in the background. Hey presto - you can now sign in from anywhere in the world and watch a live feed of exactly what they're working on!
+
+Nanny Cams Do you have any suspicions about your nanny? You could setup iSpy to monitor both a microphone and camera in your home and trigger recording of both the video and audio on loud noises - so if your children (or the nanny!) starts screaming you'll have it all on tape!
+
+Pet Monitoring Aside from the obvious "Login to watch your pets" you can also setup alarms to let you know if your dogs start barking based on a microphone trigger. As the barking is detected iSpy can play audio files as part of the alert - so for instance you could record yourself shouting at your dogs to be quiet and play it back as soon as they start howling.
+
+Neighbourhood Watch iSpy is currently in widespread use in South Africa where it's used in numerous houses around the neighbourhood to detect loitering. Users of the system share one multi-user iSpy account to centralise access to all cameras in the neighbourhood from the ispyconnect website.
+
+Staff Monitoring So you leave work early on a Friday but want to make sure your employees stay till close of business? iSpy to the rescue! iSpy can detect and alert on lack of movement - so you can configure it to send you an SMS if, for example no movement is detected for 5 minutes. You then login over your 3G phone and watch a live feed of your office which you can then record as evidence for Monday morning...!
+
+Machinery Monitoring As iSpy can detect a lack of movement it's perfect for monitoring machinery - if something in your factory stops working iSpy can send you an alert instantly - minimizing downtime costs.
+
+Wildlife Watching Put a webcam in a bird house or near a burrow and capture the daily activity of your favourite animals!
+
+Theft Protection Say the worst happens and someone breaks into your house and steals your computer. iSpy can start on system start (covertly with no messages given to the user). It can then start recording on a schedule or on motion detection and then automatically FTP, email or SMS you images of the people who have stolen your computer.
+
+Baby Monitoring Keep a constant eye on your baby anytime, anywhere. Sound alerts if they start crying (using the sound monitoring functions) and check in to see what's up with your mobile device without getting out of bed!
+
+
+____________________________________________________________________________________________________________________________________
+
+
+iCam
+____
+
+iCam Pro, the next generation of iCam is now available! iCam Pro features improved video quality, improved bandwidth usage, and many other features. Visit http://skjm.com/icampro/ for more info.
+
+iCam allows you to remotely monitor multiple live video and audio webcam feeds from your iPhone, iPod touch or iPad over WiFi and EDGE/3G/4G/LTE.
+
+iCam has been featured on the Today Show, CNN, and Good Morning America in addition to the "Dog Lover" iPhone TV Ad - http://skjm.com/news.php
+
+Popular uses include baby monitor, pet cam, nanny cam, spy cam, and security camera.
+
+Record and playback Motion Events and Receive Push Notifications on your iPhone, iPod touch, or iPad when Motion is Detected by your iCamSource(s) - Visit http://skjm.com/icam/vid.php for video demonstrations.
+
+Please note that to use iCam you will also need to download the free iCamSource software from http://skjm.com/icam/ or purchase our new iCamSource Mobile app.
+
+The iCamSource software supports Windows XP/Vista/7/8 and Mac OS X 10.4 and later. iCamSource Mobile supports camera-enabled iOS devices running iOS 6 or later.
+
+iCam users also have access to iCamWeb, allowing you to connect to your iCamSource(s) from most any modern, Java-enabled web browser : http://skjm.com/icam/web/
+
+NOTICE: If you are ever having issues please contact support instead of just leaving a bad review as we have no way of contacting you to help resolve your problem. Thanks!
+
+*** Have questions about the new iCam Service Contributions? Visit http://skjm.com/forum/index.php?topic=3198.0 for more information.
+
+*** You can also visit http://skjm.com/icam/support.php#faq for a list of other Frequently Asked Questions.
+
+
+
+____________________________________________________________________________________________________________________________________
+
+
+SpyCam
+______
+
+SpyCam is an application for specialist, which can photograph clip by concealment.
+It operates by complete black screen mode by removing background lighting. 
+Also, it can hide video as it is not saved in iPhone’s camera roll. 
+
+When recording school lecture by parts quietly. 
+When wanting to leave instants of play/musical/performance
+When photographing in a public place not caring others. 
+When collecting the proof. 
+You can use in various uses. 
+
+: Features
+- 3 resolution recording options (HD support)
+- Spy HD Snapshot
+- Front/rear camera support 
+- Complete black screen mode (ON/OFF)
+- Fast recording possible
+- Automatically recording at the same time as running.
+- Save by close button (home button)
+- You can copy saved video by camera roll (album) 
+- Indicate remaining disk capacity
+- If disk capacity is not enough, it saves automatically. 
+- Passcode Lock Support
+- Application supports iTunes file sharing.
+- Focus Auto/Manual
+- Motion detection sensor. (Option)
+- Dropbox Support.
+
+If you have any question or problems please contact apps@newkline.com. 
+We are committed to fixing bugs as soon as possible.
+
+
+____________________________________________________________________________________________________________________________________________
+
+AtHome Camera
+_____________
+
+Description
+The most advanced video surveillance app in App Store! Now one universal app supports both iPhone and iPad! 
+
+"This app provides so many advanced features; it literally replaced my 2000+ dollar surveillance system." 
+
+"This app turned my old computer, or smart phones, or tablets into a professional home security system! The best part, I can access and control from my iPhone anywhere and anytime!" 
+
+******* Main Features ******** 
+
+1. Remote monitoring on the go: Watch live video via 3G/4G or WiFi wherever you are! 
+2. Motion detection: Whenever motion is triggered, the 30-second video will be recorded, with email and push notification to inform you of the event; 
+3. Pre-scheduled recording: You can specify two time intervals each day to automatically start/stop video recordings. Want to check if your kids are home when they’re supposed to? Schedule the recording to start at 3 o'clock! 
+4. Computer hibernation: Remotely turn off your computer, and/or schedule a time to auto wake it up again; 
+5. Secure and private: All authentication connections between your iPhone and your AtHome Video Streamer are encrypted; 
+6. Multiple platforms：You can run AtHome Video Streamer (counterpart of AtHome Camera for video capturing) on your computers (Windows or Mac) and iOS devices (iPhone/iPod/iPad). For details, please visit http://www.iChano.com/athomecam/intro.html. 
+
+******* 3 Steps to Setup ******** 
+Step 1: Download AtHome Video Streamer from http://www.iChano.com/athomecam/download.html, install it onto your computer or your smart devices; 
+Step 2: A unique Connection ID (also called CID) will be assigned after AtHome Video Streamer is launched in the first time. You are required to define your own username and password; 
+Step 3: Start AtHome Camera app on your iPhone/iPod/iPad, type in the above CID, the username and password, you are ready to connect! 
+
+If you have any questions about setting up an AtHome Video Streamer, please visit http://www.iChano.com/athomecam/ for details. 

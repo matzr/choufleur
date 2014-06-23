@@ -7,7 +7,8 @@ angular.module('choufleur')
       $scope.register = function() {
         $http.post('/auth/register', {
           username: $scope.username,
-          sha1password: CryptoJS.SHA1($scope.password).toString()
+          sha1password: CryptoJS.SHA1($scope.password).toString(),
+          emailAddress: $scope.emailAddress
         }).success(function(response) {
           if (response.status === 'FAILURE') {
             alert('Registration failed: ' + response.error);
@@ -56,6 +57,7 @@ angular.module('choufleur')
         success(function(response) {
           if (response.status == 'SUCCESS') {
             $scope.sensorToken = response.sensorRegistrationToken;
+            socket.emit('waiting_for_token', response.sensorRegistrationToken);
           } else {
             alert('An error occured: ' + response.error);
           }

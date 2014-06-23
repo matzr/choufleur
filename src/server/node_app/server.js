@@ -13,6 +13,9 @@ var dataConnector = require('./data-connector.js');
 
 var sessionManagement = require('./session-management.js');
 var notificationsManagement = require('./notifications-management.js');
+var sensorsManagement = require('./sensors-management.js');
+var usersManagement = require('./users-management.js');
+var emailManagement = require('./email-management.js');
 var registration = require('./registration.js');
 var json_statuses = require('./json-values.js').statuses;
 
@@ -21,7 +24,7 @@ var FILE_STORAGE_BASE = __dirname + '/file_storage/';
 
 
 var samplesListeners = [];
-
+var registrationListeners = {};
 
 app.use(express.static(__dirname + '/../web_app/app/'));
 
@@ -78,6 +81,40 @@ app.post('/auth/register', function(req, res) {
                 username: req.body.username,
                 password: req.body.sha1password
             }).then(function() {
+
+                emailManagement.sendEmail(req.body.emailAddress, 'Welcome to SensyCam', '<div style="font-family: \'Courier New\'; background: #000; color: #0f0; font-size: 12px; padding: 20px;">    \
+<div>Hi <span style="font-weight: bold; color: #0f0; text-decoration: none;">' + req.body.emailAddress + '</span>!</div>    \
+<div>&nbsp;</div>    \
+<div>&nbsp;</div>    \
+<div>    \
+<h2>Welcome to SensyCam!</h2>    \
+</div>    \
+<div>Thank you for creating an account with us.</div>    \
+<div>&nbsp;</div>    \
+<div>    \
+<h2>SensyCam Web</h2>    \
+</div>    \
+<div>You can access your web dashboard to get instant access to all your sensors at any time by going to <a style="font-weight: bold; color: #0f0; text-decoration: none;" href="https://www.sensycam.com">http://www.sensycam.com</a> and entering your account details</div>    \
+<div>For the time being, SensyCam web runs on Chrome and Safari. It is not (yet) compatible with Internet Explorer and FireFox.</div>    \
+<div>If you have any questions or suggestions, please <a style="font-weight: bold; color: #0f0; text-decoration: none;"  href="mailto:sensycam@mathieugardere.com">drop us an email</a> and we\'ll get back to you in no time!</div>    \
+<div>&nbsp;</div>    \
+<div>    \
+<h2>Privacy</h2>    \
+</div>    \
+<div>We won\'t send you any unsolicited mail, and we\'ll keep your email address private, so don\'t worry about any spam coming from us.</div>    \
+<div>&nbsp;</div>    \
+<div>    \
+<h2>Roadmap</h2>    \
+</div>    \
+<div>A lot of features are about to be added to our website, amongst which the ability to force your sensors to send feedback even when no trigger (loud sound or motion) is detected, thus practically turning your sensors into top of the line network cameras.</div>    \
+<div>A lot of improvements are to come to our iOS Sensor app and we also plan to release an Android Sensor app very shortly.</div>    \
+<div>On top of that, a new app is in the pipes that will let you monitor your SensyCam sensors from a mobile device (iOS or Android)</div>    \
+<div>&nbsp;<div>    \
+<div>&nbsp;<div>    \
+<div>Best Regards, <br/>    \
+<a style="font-weight: bold; color: #0f0; text-decoration: none;"  href="mailto:sensycam@mathieugardere.com">The SensyCam Team</a></div>    \
+</div>');
+
                 res.json({
                     status: json_statuses.success,
                     message: 'user created'
@@ -155,6 +192,12 @@ app.get('/sensors/:sessionToken', function(req, res) {
             value: user.user_uid
         }]).
         then(function(sensors) {
+            for (var i = 0; i < sensors.length; i += 1) {
+                var sensorId = sensors[i].sensor_id;
+                var sensor = sensorsManagement.get(sensorId);
+                sensors[i].online = sensorsManagement.isOnline(sensorId)
+                usersManagement.get(sensors[i].user_uid).addSensor(sensor);
+            }
             res.json({
                 status: json_statuses.success,
                 sensors: sensors
@@ -170,6 +213,9 @@ app.get('/samples/:sessionToken/:sensorId', function(req, res) {
             value: req.params.sensorId
         }]).
         then(function(samples) {
+            _.each(samples, function(sample) { 
+                sample.sample_start_date = moment(sample.sample_start_date).valueOf(); 
+            });
             res.json(samples);
         })
     });
@@ -190,6 +236,9 @@ app.get('/samples/:sessionToken/:sensorId/:dtFrom/:dtTo', function(req, res) {
             value: new Date(parseInt(req.params.dtTo, 10))
         }]).
         then(function(samples) {
+            _.each(samples, function(sample) { 
+                sample.sample_start_date = moment(sample.sample_start_date).valueOf(); 
+            });
             res.json(samples);
         })
     });
@@ -357,10 +406,11 @@ function addListener(listener) {
 }
 
 function sensorTokenUsed(token) {
-    for (var i = 0; i < samplesListeners.length; i += 1) {
-        samplesListeners[i].emit('sensorTokenUsed', {
+    if (registrationListeners[token]) {
+        registrationListeners[token].emit('sensorTokenUsed', {
             sensorToken: token
         });
+        delete registrationListeners[token];
     }
 }
 
@@ -375,10 +425,25 @@ registration.setOnTokenUsed(sensorTokenUsed);
 
 //TODO: session token check
 io.sockets.on('connection', function(socket) {
-    addListener(socket);
 
     socket.on('disconnect', function() {
         removeListener(socket);
+    });
+
+    socket.on('waiting_for_token', function (token) {
+        registrationListeners[token] = socket;
+    });
+
+    socket.on('user_connected', function (sessionToken) {
+        sessionManagement.getSessionToken(sessionToken).
+        then(function (user) {
+            usersManagement.get(user.user_uid).setSocket(socket);
+            addListener(socket);
+        });
+    });
+
+    socket.on('sensor_online', function (sensorId) {
+        sensorsManagement.get(sensorId).cameOnline(socket);
     });
 });
 

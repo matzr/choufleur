@@ -14,8 +14,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
+@property (weak, nonatomic) IBOutlet UIView *motionSensorDisabledView;
+@property (weak, nonatomic) IBOutlet UIView *darkScreen;
+@property (weak, nonatomic) IBOutlet UIButton *goDarkButton;
 - (IBAction)recordPause:(id)sender;
 - (IBAction)close:(id)sender;
 - (IBAction)videoFeedbackSwitchChanged:(id)sender;
+- (IBAction)goDark:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MainMenuViewController.h"
+#import "CommunicationsManager.h"
 
 @interface MainMenuViewController () {
     NSUserDefaults *_userDefaults;
@@ -48,6 +49,10 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self checkRegistrationStatus];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - Navigation

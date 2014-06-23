@@ -51,9 +51,14 @@
 
 
     <div class="pictures" ng-show="pictureSamples.length > 0">
-        <div style="width: {{pictureSamples.length * 42}}px;">
-            <div ng-repeat="pictureSample in pictureSamples" class="thumbnail" style="background-image: url(/sample/{{sessionToken}}/{{pictureSample.sampleUid}});">
+        <div class="pictures-container" style="width: {{pictureSamples.length * 42}}px;">
+            <div ng-repeat="pictureSample in pictureSamples" class="thumbnail" style="background-image: url(/sample/{{sessionToken}}/{{pictureSample.sampleUid}});" ng-click="openPhoto(pictureSample)">
             </div>
         </div>
     </div>
+
+    <mg-modal-dialog show="modalShown" width="750px" height="524px">
+        <div class="modal-picture" style="background-image: url('/sample/{{sessionToken}}/{{selectedPictureSample.sampleUid}}'); background-size: contain; background-repeat: no-repeat; background-position: center;" ></div>
+    </mg-modal-dialog>
+
 </div>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>342E4721-67A8-4C00-8459-39278CC1C867</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SensyCam Sensor</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1F50157B-543C-48E2-BE20-52B1107CB438</key>
+		<string>https://github.com/square/SocketRocket.git</string>
+		<key>28DED5F6-5AE4-439E-956A-3D4E430D4102</key>
+		<string>ssh://bitbucket.org/lesbandits/choufleur.git</string>
+		<key>F6AB0746-D903-4C56-80DC-226A4DDD8513</key>
+		<string>https://github.com/BradLarson/GPUImage.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>src/clients/iOS client/ChouFleurClient/SensyCam Sensor.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1F50157B-543C-48E2-BE20-52B1107CB438</key>
+		<string>../../../socket.IO-objc/submodules/socket-rocket</string>
+		<key>28DED5F6-5AE4-439E-956A-3D4E430D4102</key>
+		<string>../../../../../..</string>
+		<key>F6AB0746-D903-4C56-80DC-226A4DDD8513</key>
+		<string>../../../GPUImage</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://bitbucket.org/lesbandits/choufleur.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>28DED5F6-5AE4-439E-956A-3D4E430D4102</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>28DED5F6-5AE4-439E-956A-3D4E430D4102</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ChouFleur</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F6AB0746-D903-4C56-80DC-226A4DDD8513</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GPUImage</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1F50157B-543C-48E2-BE20-52B1107CB438</string>
+			<key>IDESourceControlWCCName</key>
+			<string>socket-rocket</string>
+		</dict>
+	</array>
+</dict>
+</plist>

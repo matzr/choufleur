@@ -1,6 +1,27 @@
-<h1>Sensors List</h1>
-<ul>
-	<li ng-repeat="sensor in sensors"><a href="#sensor/{{sensor.sensor_id}}/{{sensor.sensor_name}}">{{sensor.sensor_name}}</a></li>
-</ul>
-<br/><br/><br/>
-<div><a href="#/sensors-overview">View all sensor details</a></div>
+<div class="sensors-list">
+    <mg-navigation></mg-navigation>
+    <h1>Sensors List</h1>
+
+    <ul ng-show="sensors.length > 0">
+        <li ng-repeat="sensor in sensors">
+            <a href="#sensor/{{sensor.sensor_id}}/{{sensor.sensor_name}}">View Sensor '<b>{{sensor.sensor_name}}</b>' details</a> 
+            <div class="sensor-status sensor-online" ng-show="sensor.is_online">online</div>
+            <div class="sensor-status sensor-offline" ng-show="!sensor.is_online">offline</div>
+        </li>
+        <li>
+            <br/>[<a href="/#/add-sensor">Add a new sensor</a>]</li>
+        <li>
+            <br/>[<a href="#/sensors-overview">View all sensor details</a>]</li>
+    </ul>
+
+
+    <div class="no-sensors" ng-show="sensors.length === 0">
+        It appears you have no sensor!
+        <br/>Install the Sensor app on a device, and <a href="/#/add-sensor"><u>get a registration token</u></a> for it.
+        <br/>
+        <br/>
+        <div>
+            <img src="/images/Download_on_the_App_Store_Badge_US-UK_135x40.png" />
+        </div>
+    </div>
+</div>

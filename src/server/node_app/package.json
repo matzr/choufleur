@@ -26,6 +26,7 @@
     "bcrypt": "^0.7.8",
     "redis": "^0.10.3",
     "apn": "^1.5.2",
-    "mandrill-api": "^1.0.39"
+    "mandrill-api": "^1.0.39",
+    "json-stringify-safe": "^5.0.0"
   }
 }

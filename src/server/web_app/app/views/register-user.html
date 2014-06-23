@@ -4,43 +4,46 @@
     <p>&nbsp;</p>
 
     <div ng-show="!registrationSucceeded">
-        <h4>Choose a username and a password</h4>
+        <form name="registrationform">
+            <h4>Choose a username, a password, and enter your email address</h4>
 
 
-        <div class="panel">
-            <div class="panel-body">
-                <div>
-                    <div class="row">
-                        <span>Username</span>
-                        <input type="text" ng-model="username" />
+            <div class="panel">
+                <div class="panel-body">
+                    <div>
+                        <div class="row">
+                            <span>Username</span>
+                            <input type="text" ng-model="username" ng-required="true"/>
+                        </div>
                     </div>
-                </div>
 
 
-                <div>
-                    <div class="row">
-                        <span>Password</span>
-                        <input type="password" ng-model="password" />
+                    <div>
+                        <div class="row">
+                            <span>Password</span>
+                            <input type="password" ng-model="password" ng-required="true"/>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <div class="row">
-                        <span>Email</span>
-                        <input type="text" ng-model="emailAddress" />
+                    <div>
+                        <div class="row">
+                            <span>Email</span>
+                            <input type="email" ng-model="emailAddress" ng-pattern="/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/" ng-required="true"/>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <button ng-click="register()">Register</button>
+                    <div>
+                        <button ng-disabled="!registrationform.$valid" ng-click="register()">Register</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <div ng-show="registrationSucceeded">
         <h3>Registration completed</h3>
-        <br/><br/>
+        <br/>
+        <br/>
 
         <h4>Install the sensor app...</h4>
         <div class="panel">
@@ -60,8 +63,8 @@
                 </div>
             </div>
         </div>
-
-        <br/><br/>
+        <br/>
+        <br/>
         <h4>... get a sensor token</h4>
         <div class="panel">
             <div class="panel-body">
@@ -77,11 +80,12 @@
                 </div>
                 <div>
                     <div class="row" ng-show="sensorToken">
-                        <span>Token: </span><span><b>{{sensorToken}}</b></span>
+                        <span>Token:</span>
+                        <span><b>{{sensorToken}}</b>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

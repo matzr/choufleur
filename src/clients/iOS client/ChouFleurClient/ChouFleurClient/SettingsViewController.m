@@ -7,9 +7,11 @@
 //
 
 #import "SettingsViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SettingsViewController () {
     NSUserDefaults* _userDefaults;
+    BOOL _frontCameraAvailable;
 }
 
 @end
@@ -36,6 +38,24 @@ NSString* numberOfCapturesKey = @"numberOfCaptures";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    BOOL frontCam = NO;
+    BOOL backCam = NO;
+
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices)
+    {
+        if ([device position] == AVCaptureDevicePositionFront)
+        {
+            frontCam = YES;
+        } else if ([device position] == AVCaptureDevicePositionBack) {
+            backCam = YES;
+        }
+    }
+    
+    [self.activeCameraSegmentedControl setEnabled:frontCam forSegmentAtIndex:1];
+    [self.activeCameraSegmentedControl setEnabled:backCam forSegmentAtIndex:2];
+    _frontCameraAvailable = frontCam;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -151,9 +171,13 @@ NSString* numberOfCapturesKey = @"numberOfCaptures";
     
     //active cam
     NSString *activeCam = [_userDefaults valueForKey:activeCameraKey];
-    if (!activeCam) {
+    if (!activeCam && _frontCameraAvailable) {
         activeCam = @"FRONT";
+    } else {
+        activeCam = @"DISABLED";
     }
+    [_userDefaults setValue:activeCam forKey:activeCameraKey];
+    [_userDefaults synchronize];
     if ([activeCam isEqualToString:@"DISABLED"]) {
         self.activeCameraSegmentedControl.selectedSegmentIndex = 0;
     } else if ([activeCam isEqualToString:@"FRONT"]) {

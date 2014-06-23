@@ -9,6 +9,7 @@ angular
     'ngRoute',
     'choufleur.services',
     'choufleur.directives'
+//    ,'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -39,6 +40,10 @@ angular
       .when('/register', {
         templateUrl: 'views/register-user.html',
         controller: 'RegisterUserCtrl'
+      })
+      .when('/add-sensor', {
+        templateUrl: 'views/add-sensor.html',
+        controller: 'AddSensorCtrl'
       })
       .otherwise({
         redirectTo: '/'

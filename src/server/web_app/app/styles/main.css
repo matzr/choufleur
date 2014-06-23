@@ -50,11 +50,9 @@
 .marketing p + h4 {
     margin-top: 28px;
 }
-
 .clear {
-  clear: both;
+    clear: both;
 }
-
 /* Responsive: Portrait tablets and up */
  @media screen and (min-width: 768px) {
     /* Remove the padding we set earlier */
@@ -194,6 +192,7 @@ h1 {
     right: 0;
 }
 .sensor-details .pictures {
+    position: relative;
     width: 700px;
     height: 50px;
     background: linear-gradient(to bottom, #eee 0%, #ccc 100%);
@@ -251,79 +250,177 @@ input {
     border-bottom: 1px solid #0f0
 }
 .panel {
-  background: rgba(255, 255, 255, .1);
-  border-radius: 0;
-  margin: 10px 0;
-  padding: 0;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 0;
+    margin: 10px 0;
+    padding: 0;
 }
-
 .panel-body {
-  position: relative;
-  margin: 10px;
+    position: relative;
+    margin: 10px;
 }
-
 button {
-  background: none;
-  color: #0f0;
-  border: none;
-  border-left: solid 1px #0f0;
-  border-bottom: solid 1px #0f0;
-  margin-top: 10px;
+    background: none;
+    color: #0f0;
+    border: none;
+    border-left: solid 1px #0f0;
+    border-bottom: solid 1px #0f0;
+    margin-top: 10px;
 }
-
 button:hover {
-  border-right: solid 1px rgba(0, 255, 0, .6);
-  border-top: solid 1px rgba(0, 255, 0, .6);
+    border-right: solid 1px rgba(0, 255, 0, .6);
+    border-top: solid 1px rgba(0, 255, 0, .6);
 }
-
 .authentication-form .panel .row, .registration-form .panel .row {
-  position: absolute;
-  height: 30px;
-  width: 250px;
-  left: 50%;
-  margin-left: -125px;
+    position: absolute;
+    height: 30px;
+    width: 250px;
+    left: 50%;
+    margin-left: -125px;
 }
-
 .registration-form .panel .large-row {
-  position: absolute;
-  height: 30px;
-  width: 400px;
-  left: 50%;
-  margin-left: -200px;
+    position: absolute;
+    height: 30px;
+    width: 400px;
+    left: 50%;
+    margin-left: -200px;
 }
-
 .authentication-form .panel-body > div, .registration-form .panel-body > div {
-  position: relative;
-  height: 40px;
+    position: relative;
+    height: 40px;
 }
-
 .authentication-form .panel input, .registration-form .panel input {
-  position: absolute;
-  left: 100px;
+    position: absolute;
+    left: 100px;
 }
-
 .authentication-form .panel button, .registration-form .panel button {
-  position: absolute;
-  left: 50%;
-  width: 80px;
-  margin-left: -40px;
+    position: absolute;
+    left: 50%;
+    width: 80px;
+    margin-left: -40px;
 }
-
 .registration-form .panel button.request-token-button {
-  width: 120px;
+    width: 120px;
 }
-
 .authentication-form .registration-link {
-  position: absolute;
-  left: 50%;
-  width: 300px;
-  margin: 20px 0 0 -150px;
+    position: absolute;
+    left: 50%;
+    width: 300px;
+    margin: 20px 0 0 -150px;
 }
-
 .authentication-form .registration-link a {
-  text-decoration: underline;
+    text-decoration: underline;
+}
+:focus {
+    outline-color: rgba(0, 255, 0, .2);
+}
+nav {
+    position: absolute;
+    height: 22px;
+    right: 0;
+    background: #0f0;
+    width: 335px;
+    color: #000;
+    font-weight: bold;
+}
+nav ul {
+    padding-left: 0;
+}
+nav ul li {
+    float: left;
+}
+nav ul li a, nav ul li a:hover {
+    color: #000;
+    text-decoration: none;
+    margin: 5px 10px;
+}
+nav ul li a::before {
+    content:" | ";
+}
+body {
+    padding-top: 0;
 }
 
-:focus {
-  outline-color: rgba(0, 255, 0, .2);
-} 
+.mg-modal-overlay {
+    /* A dark translucent div that covers the whole screen */
+    position:absolute;
+    z-index:9999;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.8;
+}
+.mg-modal-dialog {
+    /* A centered div above the overlay with a box shadow. */
+    z-index:10000;
+    position: absolute;
+    width: 50%;
+    /* Default */
+    /* Center the dialog */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 4px 4px 80px #000;
+}
+.mg-modal-dialog-content {
+    padding:10px;
+    text-align: left;
+}
+.mg-modal-close {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 120%;
+    display: inline-block;
+    font-weight: bold;
+    font-family:'arial', 'sans-serif';
+}
+
+.modal-picture {
+    width: 730px;
+    height: 504px;
+}
+
+
+.sensor-status {
+    right: 0;
+    width: 100px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+}
+
+.sensors-list li {
+    position: relative;
+}
+
+.sensor-offline {
+    background: #f00;
+    color: #ccc;
+}
+
+.sensor-online {
+    background: #0f0;
+    color: #000;
+}
+
+
+button[disabled=disabled] {
+    color: #ccc;
+    border-left: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+}
+
+button[disabled=disabled]:hover {
+    border-right: none;
+    border-top: none;
+}
