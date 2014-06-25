@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('choufleur')
-    .controller('LogonCtrl', ['$scope', '$http', 'session', '$location',
-        function($scope, $http, session, $location) {
+    .controller('LogonCtrl', ['$scope', '$http', 'session', '$location', 'socket',
+        function($scope, $http, session, $location, socket) {
             if (session.token) {
                 $location.path('/sensors')
             } else {
@@ -25,6 +25,7 @@ angular.module('choufleur')
                                 if (response.status === 'SUCCESS') {
                                     session.token = response.token;
                                     $location.path('/sensors');
+                                    socket.emit('user_connected', session.token);
                                 } else {
                                     alert(response.error);
                                 }

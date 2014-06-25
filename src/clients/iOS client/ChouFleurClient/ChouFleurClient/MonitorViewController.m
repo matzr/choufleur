@@ -23,6 +23,7 @@
     NSMutableDictionary *currentSampleDetails;
 }
 
+@property (nonatomic,strong) NSTimer *picCaptureTimer;
 @property (nonatomic,strong) GPUImageStillCamera *videoCamera;
 @property (nonatomic,strong) GPUImageView *image;
 @property (nonatomic,strong) GPUImageGrayscaleFilter *grayscaleFilter;
@@ -88,6 +89,7 @@ int quality = AVAudioQualityMin;
 -(void)viewWillDisappear:(BOOL)animated {
     if (![_activeCamera isEqualToString:@"DISABLED"]) {
         [self.videoCamera stopCameraCapture];
+        [self.picCaptureTimer invalidate];
     }
     [self stopRecording:self];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -151,8 +153,18 @@ int quality = AVAudioQualityMin;
     });
 }
 
+-(void)saveLastPicture {
+    NSString *lastPictPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"lastPic.jpg"];
+    [self.videoCamera capturePhotoAsImageProcessedUpToFilter:self.grayscaleFilter withCompletionHandler:^(UIImage* image, NSError *error) {
+        NSData * binaryImageData = UIImageJPEGRepresentation(image, .3);
+        [binaryImageData writeToFile:lastPictPath atomically:NO];
+    }];
+}
+
 -(void)startMotionDetection {
-    self.videoCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:[_activeCamera isEqualToString:@"FRONT"]?AVCaptureDevicePositionFront:AVCaptureDevicePositionBack];
+    self.picCaptureTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(saveLastPicture) userInfo:nil repeats:YES];
+    
+    self.videoCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPreset352x288 cameraPosition:[_activeCamera isEqualToString:@"FRONT"]?AVCaptureDevicePositionFront:AVCaptureDevicePositionBack];
     
     self.videoCamera.outputImageOrientation=UIInterfaceOrientationPortrait;
     self.image=[[GPUImageView alloc]initWithFrame:self.cameraView.bounds];
@@ -205,12 +217,13 @@ int quality = AVAudioQualityMin;
 }
 
 -(void)startAudioMonitoring {
-#if TARGET_IPHONE_SIMULATOR
-    NSString *documentsDirectory = @"/tmp";
-#else
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-#endif
+    NSString *documentsDirectory = NSTemporaryDirectory();
+//#if TARGET_IPHONE_SIMULATOR
+//    NSString *documentsDirectory = @"/tmp";
+//#else
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//#endif
     
     soundFileName = [[NSUUID UUID] UUIDString];
     soundFilePath = [documentsDirectory stringByAppendingPathComponent:soundFileName];

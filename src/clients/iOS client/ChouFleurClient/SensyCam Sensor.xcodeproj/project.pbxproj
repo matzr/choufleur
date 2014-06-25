@@ -59,6 +59,7 @@
 		4E3A8ECE1958D42800AFBA3E /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A8EC31958D42800AFBA3E /* DispatchQueueLogFormatter.m */; };
 		4E3A8ECF1958D42800AFBA3E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4E3A8EC41958D42800AFBA3E /* README.txt */; };
 		4E3A8ED21958D4E300AFBA3E /* WebServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A8ED11958D4E300AFBA3E /* WebServerManager.m */; };
+		4E3A8ED61958D85500AFBA3E /* ChouFleurHttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A8ED51958D85500AFBA3E /* ChouFleurHttpConnection.m */; };
 		4E90E2471946F26D00D5E376 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E2461946F26D00D5E376 /* CoreMedia.framework */; };
 		4E90E2491946F27300D5E376 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E2481946F27300D5E376 /* CoreVideo.framework */; };
 		4E90E24B1946F27700D5E376 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E90E24A1946F27700D5E376 /* OpenGLES.framework */; };
@@ -213,6 +214,8 @@
 		4E3A8EC41958D42800AFBA3E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		4E3A8ED01958D4E300AFBA3E /* WebServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServerManager.h; sourceTree = "<group>"; };
 		4E3A8ED11958D4E300AFBA3E /* WebServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServerManager.m; sourceTree = "<group>"; };
+		4E3A8ED41958D85500AFBA3E /* ChouFleurHttpConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChouFleurHttpConnection.h; sourceTree = "<group>"; };
+		4E3A8ED51958D85500AFBA3E /* ChouFleurHttpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChouFleurHttpConnection.m; sourceTree = "<group>"; };
 		4E90E2461946F26D00D5E376 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		4E90E2481946F27300D5E376 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		4E90E24A1946F27700D5E376 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -485,6 +488,8 @@
 				4E08B09D194B1FD3005C98E9 /* MonitorViewController.m */,
 				4E3A8ED01958D4E300AFBA3E /* WebServerManager.h */,
 				4E3A8ED11958D4E300AFBA3E /* WebServerManager.m */,
+				4E3A8ED41958D85500AFBA3E /* ChouFleurHttpConnection.h */,
+				4E3A8ED51958D85500AFBA3E /* ChouFleurHttpConnection.m */,
 			);
 			path = ChouFleurClient;
 			sourceTree = "<group>";
@@ -766,6 +771,7 @@
 				4EF9E9221953E7420098030B /* SocketIOTransportXHR.m in Sources */,
 				4E9A2345192BFBDB005A0756 /* main.m in Sources */,
 				4E3A8EAD1958D3E000AFBA3E /* HTTPRedirectResponse.m in Sources */,
+				4E3A8ED61958D85500AFBA3E /* ChouFleurHttpConnection.m in Sources */,
 				4E3A8EAE1958D3E000AFBA3E /* WebSocket.m in Sources */,
 				4E3A8ECC1958D42800AFBA3E /* DDTTYLogger.m in Sources */,
 				4E08B094194AD259005C98E9 /* SettingsViewController.m in Sources */,
@@ -940,7 +946,7 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "";
 				PRODUCT_NAME = "SensyCam Sensor";
-				PROVISIONING_PROFILE = "2ED844C8-C81E-4559-A0E7-14FFA0D35654";
+				PROVISIONING_PROFILE = "5BE5FEC3-2E02-4377-8209-3816BC9C0991";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

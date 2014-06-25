@@ -10,7 +10,6 @@ angular.module('choufleur')
             }
 
             if (session.token) {
-                socket.emit('user_connected', session.token);
                 $http.get('/sensors/' + session.token).success(function(response) {
                     if (response.status === 'SUCCESS') {
                         $scope.sensors = response.sensors;
@@ -26,15 +25,18 @@ angular.module('choufleur')
                 $location.path('/');
             }
 
-            socket.on('sensor_online', function (sensor) {
+            function onSensorOnline(sensor) {
                 var sensor = JSON.parse(sensor);
                 changeOnlineStatus(sensor.sensorId, true);
-            });
+            }
 
-            socket.on('sensor_offline', function (sensor) {
+            function onSensorOffline(sensor) {
                 var sensor = JSON.parse(sensor);
                 changeOnlineStatus(sensor.sensorId, false);
-            });
+            }
+
+            socket.on('sensor_online', onSensorOnline);
+            socket.on('sensor_offline', onSensorOffline);
 
             $scope.$on('$destroy', function() {
                 if (angular.isDefined(stop)) {
@@ -49,6 +51,8 @@ angular.module('choufleur')
                     userSensors[0].is_online = newStatus;
                     $scope.$apply();
                 }
+                socket.removeListener('sensor_online', onSensorOnline);
+                socket.removeListener('sensor_offline', onSensorOffline);
             }
 
         }

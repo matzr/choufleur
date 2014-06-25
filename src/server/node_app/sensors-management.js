@@ -10,6 +10,15 @@ function Sensor(sensorId) {
 
   self.sensorId = sensorId;
 
+  function emitLocalAccessDetails() {
+    if (self.localIp && self.authToken) {
+      self.emit('localAccessDetailsUpdated', {
+        localIp: self.localIp,
+        authToken: self.authToken
+      });
+    }
+  }
+
   self.requestLocalIp = function () {
     if (sensorSocket) {
       sensorSocket.emit('local_ip');
@@ -23,20 +32,29 @@ function Sensor(sensorId) {
     socket.on('local_ip', function (data) {
       self.localIp = data;
       self.emit('localIpUpdated');
+      emitLocalAccessDetails();
     })
 
     socket.on('auth_token', function (data) {
       self.authToken = data;
       self.emit('authTokenUpdated');
+      emitLocalAccessDetails();
     })
 
     socket.on('disconnect', function() {
       delete sensorSocket;
       self.emit('offline');
     });
-
-    socket.emit('local_ip');
   }
+
+  self.requestAccess = function(socket) {
+    delete self.authToken;
+    delete self.localIp;
+    if (sensorSocket) {
+      sensorSocket.emit('local_ip');
+      sensorSocket.emit('auth_token');
+    }
+  }  
 }
 
 util.inherits(Sensor, events.EventEmitter);

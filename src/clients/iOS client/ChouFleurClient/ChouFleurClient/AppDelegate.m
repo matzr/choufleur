@@ -13,11 +13,20 @@
 #include <arpa/inet.h>
 
 
+@interface AppDelegate() {
+    
+}
+
+@property (nonatomic,strong) WebServerManager *webServerManager;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.webServerManager = [[WebServerManager alloc] init];
     return YES;
 }
 							
@@ -26,8 +35,11 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
-    //CLOSE THE WEBSOCKET
     [self closeSocket];
+    [self.webServerManager stopServer];
+    
+    //RESET AUTH TOKEN
+    self.authToken = nil;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -43,8 +55,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self openSocket];
+    [self.webServerManager startServer];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -52,10 +64,19 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(NSString *)serverHost {
+//    return @"www.sensycam.com";
+//    return @"choufleur.mathieugardere.com";
+//    return @"localhost";
+    return @"192.168.1.10";
+}
+
+-(int)serverPort {
+    return 21177;
+}
+
 -(NSString *)baseUrl {
-//    return @"http://www.sensycam.com/";
-    return @"http://localhost:21177/";
-//    return @"http://choufleur.mathieugardere.com:21177/";
+    return [NSString stringWithFormat:@"http://%@:%d/", [self serverHost], [self serverPort]];
 }
 
 
@@ -67,7 +88,7 @@
     NSString *sensorId = [userDefaults valueForKey:@"sensorId"];
     if (sensorId != nil) {
         socketIO = [[SocketIO alloc] initWithDelegate:self];
-        [socketIO connectToHost:@"localhost" onPort:21177];
+        [socketIO connectToHost:[self serverHost] onPort:[self serverPort]];
         [socketIO sendEvent:@"sensor_online" withData:sensorId];
     }
 }
@@ -91,8 +112,10 @@
         //TODO: detect and return local ip
         [socketIO sendEvent:@"local_ip" withData:[self getIPAddress]];
     } else if ([packet.name isEqualToString:@"auth_token"]) {
-        NSString *uuid = [[NSUUID UUID] description];
-        self.authToken = uuid;
+        if (!self.authToken) {
+            NSString *uuid = [[NSUUID UUID] UUIDString];
+            self.authToken = uuid;
+        }
         [socketIO sendEvent:@"auth_token" withData:self.authToken];
     }
 }

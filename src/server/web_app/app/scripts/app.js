@@ -45,6 +45,10 @@ angular
         templateUrl: 'views/add-sensor.html',
         controller: 'AddSensorCtrl'
       })
+      .when('/sensors-rt-monitor', {
+        templateUrl: 'views/sensors-rt-monitor.html',
+        controller: 'SensorsRtMonitor'
+      })
       .otherwise({
         redirectTo: '/'
       });

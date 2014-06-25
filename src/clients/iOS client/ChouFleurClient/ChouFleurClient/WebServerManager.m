@@ -7,8 +7,7 @@
 //
 
 #import "WebServerManager.h"
-
-//#import "MyHTTPConnection.h"
+#import "ChouFleurHttpConnection.h"
 
 
 
@@ -18,7 +17,7 @@
     self = [super init];
     if (self) {
         httpServer = [[HTTPServer alloc] init];
-//        [httpServer setConnectionClass:[MyHTTPConnection class]];
+        [httpServer setConnectionClass:[ChouFleurHttpConnection class]];
         [httpServer setType:@"_http._tcp."];
         [httpServer setPort:21177];
     }
