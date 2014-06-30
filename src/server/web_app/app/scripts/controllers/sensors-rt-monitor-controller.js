@@ -23,28 +23,11 @@ angular.module('choufleur')
             });
 
             $scope.$on("$destroy", function() {
-                removeSocketListeners();
             	if (angular.isDefined(stop)) {
 			        $interval.cancel(stop);
 			        stop = undefined;
 			      }
             });
-
-            function addSocketListeners() {
-                socket.on('sensorAccessDetails', receivedSensorAccessDetails);     
-            }
-
-            function removeSocketListeners() {
-                socket.removeListener('sensorAccessDetails', receivedSensorAccessDetails); 
-            }
-
-            function receivedSensorAccessDetails(accessDetails) {
-                //TODO: as we receive those message, try to access sensors: add sensor-preview directive to the "monitoring wall"
-                console.log('sensorAccessDetails received: \n\t\t' + JSON.stringify(accessDetails));
-                $scope.sensorViews.push('http://' + accessDetails.localIp + ':21177/' + accessDetails.authToken + '/PIC');
-            }
-
-            addSocketListeners();	
         }
     ]);
 

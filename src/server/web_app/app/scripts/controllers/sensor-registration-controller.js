@@ -13,8 +13,5 @@ angular.module('choufleur')
           $location.path('/');
         }
       });
-
-
     }
-
   ]);

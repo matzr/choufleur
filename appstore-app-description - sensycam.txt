@@ -1,0 +1,19 @@
+Undoubtedly the BEST MONITORING APP of its kind out there.
+Turning any iOS device into a remote sensor, SensyCam will capture any sound or motion in its vicinity.
+Once detected it will send you an email, record the sound and even take pictures if you activate this feature.
+You are free to log onto SensyCam web at any time and go back in time to play the recordings of any sounds detected and review the pictures that have been captured.
+
+SensyCam features a unique a very advances sound detection algorithm as well as state-of-the-art motion detection patterns.
+All this is configurable on your sensor (sensitivity, length of audio recording on detection, number of pictures captured).
+
+This app can be used for a multitude of reasons: protecting your house, spying, na\nny cam, baby monitor, pet monitor, ...
+
+Best of all, this app is FREE. It is the only app of Professional grade you won't have to pay for!
+
+
+Features
+- 2 audio sensitivity settings
+- 2 motion sensitivity settings
+- number of pictures captured on motion detection
+- length of recorded audio sample captured on sound detection
+- dark screen mode (for concealed use)

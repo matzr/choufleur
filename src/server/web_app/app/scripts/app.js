@@ -49,7 +49,11 @@ angular
         templateUrl: 'views/sensors-rt-monitor.html',
         controller: 'SensorsRtMonitor'
       })
-      .otherwise({
+      .when('/notifications', {
+        templateUrl: 'views/notifications.html',
+        controller: 'NotificationsCtrl'
+      })
+      .otherwise({ 
         redirectTo: '/'
       });
   })

@@ -424,3 +424,7 @@ button[disabled=disabled]:hover {
     border-right: none;
     border-top: none;
 }
+
+.sensor-realtime-image-view {
+    width: 150px;
+}

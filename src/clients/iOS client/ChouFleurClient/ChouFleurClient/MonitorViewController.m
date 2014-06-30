@@ -217,13 +217,11 @@ int quality = AVAudioQualityMin;
 }
 
 -(void)startAudioMonitoring {
+#if TARGET_IPHONE_SIMULATOR
+    NSString *documentsDirectory = @"/tmp";
+#else
     NSString *documentsDirectory = NSTemporaryDirectory();
-//#if TARGET_IPHONE_SIMULATOR
-//    NSString *documentsDirectory = @"/tmp";
-//#else
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//#endif
+#endif
     
     soundFileName = [[NSUUID UUID] UUIDString];
     soundFilePath = [documentsDirectory stringByAppendingPathComponent:soundFileName];

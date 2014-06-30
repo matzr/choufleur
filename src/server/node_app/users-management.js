@@ -6,8 +6,8 @@ var users = {};
 function User(userUid) {
   var self = this;
   var sensors = {};
-  var userSocket; 
-  
+  var userSocket;
+
   events.EventEmitter.call(self);
 
   self.userUid = userUid;
@@ -19,11 +19,21 @@ function User(userUid) {
       delete userSocket;
     });
 
-    socket.on('request_sensors_access', function () {
+    socket.on('request_sensors_access', function() {
       for (var sensorId in sensors) {
         sensors[sensorId].requestAccess();
       }
     });
+
+    socket.on('notifications', function() {
+      dataConnector.getAll('user_notification_setting', [{
+        field: 'user_uid',
+        value: sensor.user_uid
+      }]).
+      then(function (rows) {
+        socket.emit('notifications', rows);
+      });
+]    });
   }
 
   this.addSensor = function(sensor) {
@@ -39,7 +49,7 @@ function User(userUid) {
           userSocket.emit('sensor_offline', stringify(sensor));
         }
       });
-      sensor.on('localAccessDetailsUpdated', function (details) {
+      sensor.on('localAccessDetailsUpdated', function(details) {
         userSocket.emit('sensorAccessDetails', _.extend(details, {
           sensorId: sensor.sensorId
         }));
