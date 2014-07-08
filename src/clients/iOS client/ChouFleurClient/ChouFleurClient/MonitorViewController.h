@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *motionSensorDisabledView;
 @property (weak, nonatomic) IBOutlet UIView *darkScreen;
 @property (weak, nonatomic) IBOutlet UIButton *goDarkButton;
+@property (weak, nonatomic) IBOutlet UIImageView *recordingIcon;
 - (IBAction)recordPause:(id)sender;
 - (IBAction)close:(id)sender;
 - (IBAction)videoFeedbackSwitchChanged:(id)sender;

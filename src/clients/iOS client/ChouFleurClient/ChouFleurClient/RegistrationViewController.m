@@ -75,6 +75,7 @@
         UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Registration Successful" message:@"Your sensor was registered.\n You can now review your settings and start monitoring" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         alertview.tag = 10;
         [alertview show];
+        [appdel openSocket];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Sensor registration failed" message:[responseDic objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }

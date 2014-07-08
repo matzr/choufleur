@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="IsC-Qd-f3c">
     <dependencies>
-        <deployment version="1280" defaultVersion="1280" identifier="iOS"/>
+        <deployment version="1280" defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
@@ -566,14 +566,6 @@
                                 <color key="textColor" red="0.01006578575" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paused (not monitoring)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tlt-w9-AMH">
-                                <rect key="frame" x="103" y="527" width="207" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <color key="tintColor" red="0.01006578575" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="14"/>
-                                <color key="textColor" red="0.01006578575" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" id="2Wl-ph-zDk">
                                 <rect key="frame" x="144" y="267" width="166" height="158"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -614,6 +606,18 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paused (not monitoring)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tlt-w9-AMH">
+                                <rect key="frame" x="103" y="527" width="207" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <color key="tintColor" red="0.01006578575" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="14"/>
+                                <color key="textColor" red="0.01006578575" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recording-icon.png" id="rfy-2Z-E96">
+                                <rect key="frame" x="190" y="530" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.12549020349979401" green="0.12549020349979401" blue="0.12549020349979401" alpha="1" colorSpace="deviceRGB"/>
                     </view>
@@ -623,6 +627,7 @@
                         <outlet property="goDarkButton" destination="xCa-EX-W9Q" id="Tbj-sf-LCP"/>
                         <outlet property="motionSensorDisabledView" destination="6IA-VZ-34m" id="4bu-tv-8ok"/>
                         <outlet property="recordPauseButton" destination="Ucc-YS-Pb8" id="i2C-He-gf7"/>
+                        <outlet property="recordingIcon" destination="rfy-2Z-E96" id="0Z2-fb-r9x"/>
                         <outlet property="statusLabel" destination="tlt-w9-AMH" id="dbN-NI-xro"/>
                     </connections>
                 </viewController>
@@ -636,6 +641,7 @@
         <image name="headphones.png" width="80" height="80"/>
         <image name="help button.png" width="1067" height="200"/>
         <image name="record button.png" width="400" height="400"/>
+        <image name="recording-icon.png" width="40" height="40"/>
         <image name="register sensor button.png" width="1067" height="200"/>
         <image name="settings button.png" width="1067" height="200"/>
         <image name="start monitoring button.png" width="1067" height="200"/>

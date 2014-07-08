@@ -20,4 +20,6 @@
 @property (strong, readonly) NSString *baseUrl;
 @property (strong, nonatomic) NSString *authToken;
 
+-(void)openSocket;
+
 @end

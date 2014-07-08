@@ -2,16 +2,20 @@
     <mg-navigation></mg-navigation>
     <h1>Sensors List</h1>
 
+    <br/><br/>
+
     <ul ng-show="sensors.length > 0">
         <li ng-repeat="sensor in sensors">
             <a href="#sensor/{{sensor.sensor_id}}/{{sensor.sensor_name}}">View Sensor '<b>{{sensor.sensor_name}}</b>' details</a> 
-            <div class="sensor-status sensor-online" ng-show="sensor.is_online">online</div>
-            <div class="sensor-status sensor-offline" ng-show="!sensor.is_online">offline</div>
+            <div class="sensor-status sensor-online" ng-show="sensor.online">online</div>
+            <div class="sensor-status sensor-offline" ng-show="!sensor.online">offline</div>
+        </li>
+        <li ng-show="sensors.length > 1">
+            <br/>[<a href="#/sensors-overview">View all sensor details</a>]
         </li>
         <li>
-            <br/>[<a href="/#/add-sensor">Add a new sensor</a>]</li>
-        <li>
-            <br/>[<a href="#/sensors-overview">View all sensor details</a>]</li>
+            <br/>+ [<a href="/#/add-sensor">Add a new sensor</a>] +
+        </li>
     </ul>
 
 

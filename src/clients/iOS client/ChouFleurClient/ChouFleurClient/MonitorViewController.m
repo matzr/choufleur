@@ -21,6 +21,7 @@
     NSDateFormatter *dateFormatter;
     NSString *soundFileName;
     NSMutableDictionary *currentSampleDetails;
+    NSTimer* flashStatusTimer;
 }
 
 @property (nonatomic,strong) NSTimer *picCaptureTimer;
@@ -84,6 +85,7 @@ int quality = AVAudioQualityMin;
     [self startAudioMonitoring];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.darkScreen.hidden = YES;
+    flashStatusTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(flashTimer) userInfo:nil repeats:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -258,7 +260,6 @@ int quality = AVAudioQualityMin;
 
 -(void)uploadSample:(NSData *)data withName:(NSString *)fileName {
     //token must be formed like this <JS_START_TIME>_<DURATION>
-    
     NSDate *sampleStartTime = [currentSampleDetails valueForKey:kStartDateKey];
     NSNumber * duration = [currentSampleDetails valueForKey:kDurationKey];
     NSString *token =[NSString stringWithFormat:@"%lld_%d", ((long long)([sampleStartTime timeIntervalSince1970] * 1000)), [duration intValue]];
@@ -288,6 +289,10 @@ int quality = AVAudioQualityMin;
     self.goDarkButton.hidden = !_recording;
     [self.recordPauseButton setImage:[UIImage imageNamed:(_recording?@"pause button.png":@"record button.png")] forState:UIControlStateNormal];
     self.statusLabel.text = _recording?@"Monitoring":@"Paused (not monitoring)";
+    self.recordingIcon.hidden = !_recording;
+    self.statusLabel.hidden = NO;
+    self.statusLabel.alpha = _recording?.5:1;
+    self.recordingIcon.alpha = _recording?.5:1;
 }
 
 - (IBAction)close:(id)sender {
@@ -311,6 +316,13 @@ int quality = AVAudioQualityMin;
 - (IBAction)goDark:(id)sender {
     [[[UIAlertView alloc]initWithTitle:@"Going Dark" message:@"To get back to normal, just swipe this screen left or right." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     self.darkScreen.hidden = NO;
+}
+
+-(void)flashTimer {
+    if (_recording) {
+        self.statusLabel.hidden = !self.statusLabel.hidden;
+        self.recordingIcon.hidden = self.statusLabel.hidden;
+    }
 }
 
 @end

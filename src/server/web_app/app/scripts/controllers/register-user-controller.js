@@ -37,6 +37,7 @@ angular.module('choufleur')
               if (response.status === 'SUCCESS') {
                 session.token = response.token;
                 $scope.registrationSucceeded = true;
+                socket.emit('user_connected', session.token);
               } else {
                 alert('Registration failed: ' + response.error);
               }

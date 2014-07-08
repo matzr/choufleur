@@ -67,8 +67,8 @@
 -(NSString *)serverHost {
 //    return @"www.sensycam.com";
 //    return @"choufleur.mathieugardere.com";
-//    return @"localhost";
-    return @"192.168.1.10";
+    return @"localhost";
+//    return @"192.168.1.10";
 }
 
 -(int)serverPort {

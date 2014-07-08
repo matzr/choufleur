@@ -42,7 +42,7 @@ function Sensor(sensorId) {
     })
 
     socket.on('disconnect', function() {
-      delete sensorSocket;
+      sensorSocket = null;
       self.emit('offline');
     });
   }
@@ -54,7 +54,11 @@ function Sensor(sensorId) {
       sensorSocket.emit('local_ip');
       sensorSocket.emit('auth_token');
     }
-  }  
+  }
+
+  self.isOnline = function () {
+    return (typeof sensorSocket !== 'undefined') && (sensorSocket !== null);
+  };
 }
 
 util.inherits(Sensor, events.EventEmitter);
@@ -67,5 +71,5 @@ module.exports.get = function (sensorId) {
 }
 
 module.exports.isOnline = function(sensorId) {
-	return (typeof sensors[sensorId] !== 'undefined') &&  (typeof sensors[sensorId].socket !== 'undefined');
+	return (typeof sensors[sensorId] !== 'undefined') &&  (sensors[sensorId].isOnline());
 };

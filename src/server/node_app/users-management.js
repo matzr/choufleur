@@ -30,10 +30,10 @@ function User(userUid) {
         field: 'user_uid',
         value: sensor.user_uid
       }]).
-      then(function (rows) {
+      then(function(rows) {
         socket.emit('notifications', rows);
       });
-]    });
+    });
   }
 
   this.addSensor = function(sensor) {

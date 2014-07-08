@@ -26,11 +26,13 @@ angular.module('choufleur')
             }
 
             function onSensorOnline(sensor) {
+                console.log('SensorsCtrl -- onSensorOnline');
                 var sensor = JSON.parse(sensor);
                 changeOnlineStatus(sensor.sensorId, true);
             }
 
             function onSensorOffline(sensor) {
+                console.log('SensorsCtrl -- onSensorOffline');
                 var sensor = JSON.parse(sensor);
                 changeOnlineStatus(sensor.sensorId, false);
             }
@@ -43,16 +45,16 @@ angular.module('choufleur')
                     $interval.cancel(stop);
                     stop = undefined;
                 }
+                socket.removeListener('sensor_online', onSensorOnline);
+                socket.removeListener('sensor_offline', onSensorOffline);
             });
 
             function changeOnlineStatus(sensorId, newStatus) {
                 var userSensors = _.where($scope.sensors, {sensor_id: sensorId});
                 if (userSensors.length === 1) {
-                    userSensors[0].is_online = newStatus;
+                    userSensors[0].online = newStatus;
                     $scope.$apply();
                 }
-                socket.removeListener('sensor_online', onSensorOnline);
-                socket.removeListener('sensor_offline', onSensorOffline);
             }
 
         }

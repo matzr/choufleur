@@ -170,6 +170,7 @@ app.post('/auth', function(req, res) {
             } else {
                 var hash = bcrypt.hashSync(users[0].password + challenge_part1 + challenge_part2, salt);
                 if (hash === req.body.password) {
+                    usersManagement.get(users[0].user_uid);
                     res.json({
                         status: json_statuses.success,
                         token: getSessionToken(users[0])
